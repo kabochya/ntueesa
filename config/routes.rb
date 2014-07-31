@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  root 'book/user_sessions#new'
+  
+  namespace :book do
+    root 'user_sessions#new'
+    devise_for :departments, :controllers => { :sessions => "book/sessions" }
+    get 'login' => 'user_session#new', as:'login'
+    get 'logout' => 'user_session#destroy', as: 'logout'
+    resources :user_session
+  end
+  #root 'home#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
