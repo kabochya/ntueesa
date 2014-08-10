@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140731145531) do
+ActiveRecord::Schema.define(version: 20140731185707) do
 
   create_table "books", force: true do |t|
     t.string   "title"
@@ -21,6 +21,18 @@ ActiveRecord::Schema.define(version: 20140731145531) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "department_books", force: true do |t|
+    t.string   "course"
+    t.integer  "adjustment"
+    t.integer  "department_id"
+    t.integer  "book_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "department_books", ["book_id"], name: "index_department_books_on_book_id", using: :btree
+  add_index "department_books", ["department_id"], name: "index_department_books_on_department_id", using: :btree
 
   create_table "departments", force: true do |t|
     t.string   "dept_account",        default: "", null: false
@@ -38,11 +50,32 @@ ActiveRecord::Schema.define(version: 20140731145531) do
 
   add_index "departments", ["dept_account"], name: "index_departments_on_dept_account", unique: true, using: :btree
 
+  create_table "payments", force: true do |t|
+    t.integer  "user_id"
+    t.boolean  "is_paid",      default: false
+    t.boolean  "is_confirmed", default: false
+    t.string   "payment_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "payments", ["user_id"], name: "index_payments_on_user_id", using: :btree
+
+  create_table "purchases", force: true do |t|
+    t.integer  "book_id"
+    t.integer  "payment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "purchases", ["book_id"], name: "index_purchases_on_book_id", using: :btree
+  add_index "purchases", ["payment_id"], name: "index_purchases_on_payment_id", using: :btree
+
   create_table "users", force: true do |t|
     t.string   "account"
     t.string   "password"
     t.integer  "department_id"
-    t.integer  "login_count"
+    t.integer  "login_count",   default: 0
     t.string   "type"
     t.boolean  "is_member"
     t.datetime "created_at"

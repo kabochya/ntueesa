@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+	belongs_to :department
+	has_many :payments
+	has_many :purchases, through: :payments
 	LOGIN_SUCCESS=1
 	LOGIN_FAIL=2
 	CONNECTION_FAIL=3

@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :account
       t.string :password
       t.belongs_to :department
-      t.integer :login_count
+      t.integer :login_count, default: 0
       t.string :type
       t.boolean :is_member
       t.timestamps

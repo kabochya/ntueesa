@@ -1,5 +1,5 @@
 class EeUser < User
-	def authenticate account, password
-		ntu_vpn_auth account,password
+	def authenticate password
+		ntu_vpn_auth school_id,password
 	end
 end

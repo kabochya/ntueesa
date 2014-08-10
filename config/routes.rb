@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
-  root 'book/user_sessions#new'
   
   namespace :book do
     root 'user_sessions#new'
     devise_for :departments, :controllers => { :sessions => "book/sessions" }
-    get 'login' => 'user_session#new', as:'login'
-    get 'logout' => 'user_session#destroy', as: 'logout'
-    resources :user_session
+    get 'login' => 'user_sessions#new', as:'login'
+    get 'logout' => 'user_sessions#destroy', as: 'logout'
+    get 'list' => 'products#show', as: 'list'
+    resources :purchases
+    resource :user_sessions
   end
   #root 'home#index'
   # The priority is based upon order of creation: first created -> highest priority.
