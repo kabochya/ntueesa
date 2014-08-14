@@ -1,13 +1,33 @@
 // Place all the styles related to the book/product controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.non-purchased{
-	>.cancel-button{
-		display:none
-	}
+.item-box{
+  border:1px solid black;
 }
-.purchased{
-	>.purchase-form{
-		display:none
-	}
+.book-not-purchased{
+  >.cancel-button{
+    display:none
+  }
+  >.checked-out-button{
+    display:none
+  }
+}
+.book-purchased{
+  >.purchase-form{
+    display:none
+  }
+  >.checked-out-button{
+    display:none
+  }
+}
+.book-checked-out{
+  >.purchase-form{
+    display:none
+  }
+  >.cancel-button{
+    display:none
+  }
+}
+.input-button{
+  @include button($is-input:true);
 }

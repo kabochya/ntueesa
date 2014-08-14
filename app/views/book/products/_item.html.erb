@@ -1,8 +1,9 @@
-	<div class="item-box small-1 columns <%=current_user.payments.active.first.purchases.where(book_id: item.id).exists? ? 'purchased': 'non-purchased'%>">
+	<div class="item-box small-1 columns <%= current_user.purchase_css_class(item.id) %>">
 	<%= item.title %><br>
 	<%= item.author %><br>
 	<%= item.price %><br>
-	<%= button_to "訂購",book_purchases_path, params: { :book_id=>item.id}, remote: true , class: 'button expand', form_class: 'purchase-form'%>
-	<%= link_to "取消訂購", book_purchase_path(item.id), method: :delete, remote: true, class: 'button secondary expand cancel-button' %>
+	<%= button_to "訂購",book_purchases_path, params: { :book_id=>item.id}, remote: true , data: {type: 'json'} , class: 'button input-button expand', form_class: 'purchase-form'%>
+	<%= link_to "取消訂購", book_purchase_path(item.id), method: :delete, remote: true, data: {type: 'json'} , class: 'button secondary expand cancel-button' %>
+	<div class="button disabled checked-out-button expand">已購買</div>
 	<div class="alert purchase-status"></div>
 	</div>

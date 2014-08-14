@@ -4,14 +4,21 @@ class Book::ApplicationController < ApplicationController
 
 	def authenticate_user!
 		unless session[:user_id]&&session[:expires_at]
-			redirect_to book_login_path
+			respond_to do |format|
+		      format.html { redirect_to book_login_path }
+		      format.json { render json:{location:book_login_path} }
+		    end
 			return false
 		end
 
 		if session[:expires_at]<Time.current
 			session[:user_id] = nil
 			session[:expires_at] = nil
-			redirect_to book_login_path
+		    respond_to do |format|
+		      format.html { redirect_to book_login_path }
+		      format.json { render json:{location:book_login_path} }
+		    end
+			#redirect_to book_login_path
 			return false
 		else
 			session[:expires_at]=Time.current+30.minutes
@@ -19,7 +26,7 @@ class Book::ApplicationController < ApplicationController
 		end
 	end
 	def user_logined
-		if session[:user_id]&&session[:expires_at]
+		if session[:user_id]&&(session[:expires_at]>Time.current)
 			redirect_to book_list_path
 			return false
 		end

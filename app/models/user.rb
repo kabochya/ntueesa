@@ -5,6 +5,21 @@ class User < ActiveRecord::Base
 	LOGIN_SUCCESS=1
 	LOGIN_FAIL=2
 	CONNECTION_FAIL=3
+
+	def purchase_css_class book_id
+		status=['book-not-purchased','book-purchased','book-checked-out']
+		valid=purchase_validate book_id
+		return status[valid]
+	end
+
+	def purchase_validate book_id
+		p=purchases.where(book_id: book_id)
+		if p.exists?
+			return p.first.payment.status!=0 ? 2 : 1 # 1=> purchased, not checked-out yet , 2=>checked-out
+		else
+			return 0 # 0 => not-purchased
+		end
+	end
 	protected
 
 	def ntu_vpn_auth username, password

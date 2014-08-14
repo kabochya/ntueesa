@@ -1,13 +1,23 @@
 Rails.application.routes.draw do
-  
+
+  root 'book/user_sessions#new'
   namespace :book do
     root 'user_sessions#new'
-    devise_for :departments, :controllers => { :sessions => "book/sessions" }
-    get 'login' => 'user_sessions#new', as:'login'
+    devise_for :departments, :controllers => { :sessions => "book/sessions" },path:'department' ,path_names: {sign_in: 'login',sign_out: 'logout'}
+    get 'login' => 'user_sessions#new',as:'new_login'
+    post 'login' => 'user_sessions#create', as:'login'
     get 'logout' => 'user_sessions#destroy', as: 'logout'
-    get 'list' => 'products#show', as: 'list'
-    resources :purchases
-    resource :user_sessions
+    get 'list' => 'products#index', as: 'list'
+    resources :purchases, only:[:create,:destroy]
+    resource :department
+    #resource :user_sessions, only:[:create,:destroy,:new]
+    resources :payments, only:[:index,:destroy] do
+      member do
+        get 'checkout'
+        post 'confirm', to: 'payments#pay'
+        get 'confirm' 
+      end
+    end
   end
   #root 'home#index'
   # The priority is based upon order of creation: first created -> highest priority.

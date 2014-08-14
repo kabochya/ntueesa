@@ -1,0 +1,11 @@
+Users:<br>
+<% @d_users.each do |du|%>
+<%=du.account%><br>
+<% end %>
+Payments:<br>
+<% @d_payments.each do |dp| %>
+<%=dp.user.account%><br>
+<%=dp.payment_code%><br>
+<% end %>
+
+<%=book_department_path%>

@@ -1,0 +1,54 @@
+// Place all the styles related to the book/payments controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.payment-accordion  {
+  @include accordion-container;
+
+  .payment-accordion-navigation  {
+    $payment-accordion-navigation-bg-color:$primary-color;
+      @include accordion-navigation(
+        $bg:$payment-accordion-navigation-bg-color, 
+        $hover-bg:scale-color($payment-accordion-navigation-bg-color, $lightness: 10%),
+        $active-bg:scale-color($payment-accordion-navigation-bg-color, $lightness: 10%)
+        );
+      >.payment-content  {
+        @include accordion-content(
+        $bg:$secondary-color
+        );
+      }
+  }
+}
+
+.active-payment-label{
+  @extend .secondary;
+  font-size:0.9em
+
+}
+.checked-out-payment-label{
+  @extend .alert;
+  font-size:0.9em
+}
+.paid-payment-label{
+  @extend .warning;
+  font-size:0.9em
+}
+.confirmed-payment-label{
+  @extend .success;
+  font-size:0.9em
+}
+
+.button.purchase-cancel-button{
+    margin-bottom:0;
+    padding:0.2em 1.5em 0.3em
+  }
+.button.payment-cancel-button{
+    @extend .postfix;
+    margin-bottom:0;
+  }
+.button.checkout-button{
+    @include button($bg:scale-color($secondary-color, $lightness: -20%));
+    margin-bottom:0;
+}
+input.confirm-code, .confirm-button{
+    margin-bottom:0;
+}

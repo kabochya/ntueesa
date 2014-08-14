@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140731185707) do
+ActiveRecord::Schema.define(version: 20140811113422) do
 
   create_table "books", force: true do |t|
     t.string   "title"
@@ -52,11 +52,10 @@ ActiveRecord::Schema.define(version: 20140731185707) do
 
   create_table "payments", force: true do |t|
     t.integer  "user_id"
-    t.boolean  "is_paid",      default: false
-    t.boolean  "is_confirmed", default: false
     t.string   "payment_code"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "status",       default: 0
   end
 
   add_index "payments", ["user_id"], name: "index_payments_on_user_id", using: :btree
@@ -66,6 +65,7 @@ ActiveRecord::Schema.define(version: 20140731185707) do
     t.integer  "payment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "status",     default: 0
   end
 
   add_index "purchases", ["book_id"], name: "index_purchases_on_book_id", using: :btree
