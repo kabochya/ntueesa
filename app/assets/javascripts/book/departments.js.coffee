@@ -1,3 +1,51 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
+$ ->
+  $('.dept-confirm-button').on "ajax:success", (event, data, status, xhr) ->
+    return if ajaxResponseStatusFilter(data)
+    if data.status
+      $(this).attr('disabled','disabled')
+      $(this).parent().siblings('.dept-payment-status').html('<span class="label confirmed-payment-label">完成訂單</span>')
+    return
+  $('#user-detail-modal').on "ajax:success",".dept-confirm-button" , (event, data, status, xhr) ->
+    return if ajaxResponseStatusFilter(data)
+    if data.status
+      $(this).attr('disabled','disabled')
+      $(this).parent().siblings('.dept-payment-status').html('<span class="label confirmed-payment-label">完成訂單</span>')
+      uid=parseInt($(this).parents('table').siblings('.user-info').find('.user-info-id').text())
+      $target=$('.users-table').find('tr[uid="'+uid+'"]')
+      $target.children('.user-payment-checked-out').text(parseInt($target.children('.user-payment-checked-out').text())-1)
+      $target.children('.user-payment-confirmed').text(parseInt($target.children('.user-payment-confirmed').text())+1)
+    return
+
+  $('.dept-user-member-button').on "ajax:success", (event, data, status, xhr) ->
+    return if ajaxResponseStatusFilter(data)
+    if data.status
+      $(this).toggleClass('success').toggleClass('alert')
+      if $(this).parent().siblings('.user-is-member').text()=="會員"
+        $(this).parent().siblings('.user-is-member').text("非會員")
+        $(this).text('新增會員')
+      else
+        $(this).parent().siblings('.user-is-member').text("會員")
+        $(this).text('取消會員')
+    return
+  $('#user-book-list-modal').on "ajax:success", ".dept-user-purchase-status-button", (event, data, status, xhr) ->
+    return if ajaxResponseStatusFilter(data)
+    if data.status
+      $(this).toggleClass('success').toggleClass('alert')
+      if $(this).parent().siblings('.user-purchase-status').text()=="已領取"
+        $(this).parent().siblings('.user-purchase-status').text("未領取")
+        $(this).text('領取')
+      else
+        $(this).parent().siblings('.user-purchase-status').text("已領取")
+        $(this).text('取消領取')
+    return
+  $('#user-book-list-modal').on "ajax:success", ".dept-user-purchase-status-all-button  ", (event, data, status, xhr) ->
+    return if ajaxResponseStatusFilter(data)
+    if data.status
+      $(this).remove()
+      $('.user-purchase-status').text("已領取")
+      $('.dept-user-purchase-status-button').text('取消領取')
+    return
+  return

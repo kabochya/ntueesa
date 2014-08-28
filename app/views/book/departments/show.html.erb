@@ -1,11 +1,36 @@
-Users:<br>
-<% @d_users.each do |du|%>
-<%=du.account%><br>
-<% end %>
-Payments:<br>
-<% @d_payments.each do |dp| %>
-<%=dp.user.account%><br>
-<%=dp.payment_code%><br>
-<% end %>
-
-<%=book_department_path%>
+<div class="department-book-list small-10 small-centered columns">
+	<table class="small-12">
+		<thead>
+			<tr>
+			<% if @d.has_member %>
+				<th class="book-title">書名</th>
+				<th style="width:9%">會員價</th>
+				<th style="width:10%">非會員價</th>
+				<th style="width:10%">會員訂單</th>
+				<th style="width:12%">非會員訂單</th>
+				<th style="width:12%">會員已繳款</th>
+				<th style="width:12%">非會已繳款</th>
+			<% else %>
+				<th class="book-title">書名</th>
+				<th style="width:8%">價格</th>
+				<th style="width:8%">訂單</th>
+				<th style="width:9%">已繳款</th>
+			<% end %>
+				<th style="width:9%">總金額</th>
+			</tr>
+		</thead>
+		<tbody>
+		<% if @d.has_member %>
+			<%= render partial: 'has_mem_book_list', collection: @books, as: :book, locals:{d:@d} %>
+		<% else %>
+			<%= render partial: 'no_mem_book_list', collection: @books, as: :book, locals:{d:@d} %>
+		<% end %>
+		</tbody>
+		<tfoot>
+		</tfoot>
+	</table>
+	<div class="right">
+		<div class="text-right">總應收金額:<%= @d.total_recievable %></div>
+		<div class="text-right">總應付金額:<%= @d.total_payable %></div>
+	</div>
+</div>

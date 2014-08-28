@@ -4,12 +4,19 @@ gem 'devise'
 
 gem 'foundation-rails'
 
+gem 'foundation-icons-sass-rails'
+
 gem 'jquery-turbolinks'
 
 #gem 'bootstrap-sass','~> 3.2.0'
 
 gem 'autoprefixer-rails'
-# gem 'activeadmin', github:'gregbell/active_admin'
+
+gem 'kaminari'
+
+gem "rails-settings-cached", "0.4.1"
+
+#gem 'activeadmin', github:'gregbell/active_admin'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'

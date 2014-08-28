@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.belongs_to :department
       t.integer :login_count, default: 0
       t.string :type
-      t.boolean :is_member
+      t.boolean :is_member, default: false
       t.timestamps
     end
   end

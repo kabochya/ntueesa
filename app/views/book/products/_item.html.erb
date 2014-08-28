@@ -1,9 +1,36 @@
-	<div class="item-box small-1 columns <%= current_user.purchase_css_class(item.id) %>">
-	<%= item.title %><br>
-	<%= item.author %><br>
-	<%= item.price %><br>
-	<%= button_to "訂購",book_purchases_path, params: { :book_id=>item.id}, remote: true , data: {type: 'json'} , class: 'button input-button expand', form_class: 'purchase-form'%>
-	<%= link_to "取消訂購", book_purchase_path(item.id), method: :delete, remote: true, data: {type: 'json'} , class: 'button secondary expand cancel-button' %>
-	<div class="button disabled checked-out-button expand">已購買</div>
-	<div class="alert purchase-status"></div>
+<% if item_counter%3==0 %><div class="item-row"><% end %>
+	<div class="item-box medium-4 columns <%= current_user.purchase_css_class(item.id)+' '+(item_counter==total_count-1 ? 'end' : '') %>">
+		<div class="item-inner clearfix">
+			<div class="item-info" >
+				<h3 class="small-12 columns"><%= item.department_books.where(department_id: d.id).first.course%></h3>
+				<div class="small-6 medium-12 large-6 columns">
+				<a class="th item-image">
+				<%= image_tag( item.image_link ) %>
+				</a>
+				</div>
+				<div class="small-6 medium-12 large-6 columns">
+					<div class="small-12" style="word-wrap:break-word"><%= item.title %></div>
+					<div><%= item.author %></div>
+					<div>
+					<%= 
+						if current_user.is_member
+							"$ #{item.member_price(d.id)}<span style=\"text-decoration:line-through\">#{item.nonmember_price(d.id)}</span>"
+						else
+							"$ #{item.nonmember_price(d.id)}"
+						end%>
+					</div>
+				</div>
+			</div>
+			<div class="small-12 columns">
+				<%= button_to "訂購",book_purchases_path, params: { :book_id=>item.id}, remote: true , data: {type: 'json'} , class: 'item-button expand', form_class: 'purchase-form'%>
+				<a rel="nofollow" href="<%= book_purchase_path(item.id) %>" data-type="json" data-remote="true" data-method="delete" class="item-button alert expand cancel-button">取消訂購
+					<div class="buffer" style="height:2px"></div>
+				</a>
+				<div class="item-button button disabled checked-out-button expand">已購買
+					<div class="buffer" style="height:2px"></div>
+				</div>
+			</div>
+			<div class="alert purchase-status"></div>
+		</div>
 	</div>
+<% if item_counter%3==2 %></div><% end %>

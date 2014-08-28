@@ -1,23 +1,42 @@
 Rails.application.routes.draw do
 
   root 'book/user_sessions#new'
-  namespace :book do
+  scope module: :book, as: :book do
     root 'user_sessions#new'
-    devise_for :departments, :controllers => { :sessions => "book/sessions" },path:'department' ,path_names: {sign_in: 'login',sign_out: 'logout'}
     get 'login' => 'user_sessions#new',as:'new_login'
     post 'login' => 'user_sessions#create', as:'login'
     get 'logout' => 'user_sessions#destroy', as: 'logout'
-    get 'list' => 'products#index', as: 'list'
-    resources :purchases, only:[:create,:destroy]
-    resource :department
-    #resource :user_sessions, only:[:create,:destroy,:new]
-    resources :payments, only:[:index,:destroy] do
+    get 'shop' => 'products#index', as: 'shop'
+    get 'closed' => 'application#closed'
+    get 'prohibited' => 'application#prohibited'
+    resources :users, only:[:show] do
+      member do
+        put 'member', to: 'users#modify_membership'
+        get 'list', to: 'users#book_list'
+        put 'purchases', to: 'purchases#status_all', as:'purchases_all'
+        put 'purchase/:purchase_id', to: 'purchases#status', as: 'purchases'
+      end
+    end
+    post 'purchases' => 'products#purchase'
+    delete 'unpurchase/:id' => 'products#unpurchase', as: 'purchase'
+    #resources :purchases, only:[:create,:destroy]
+    resource :department do
+      collection do
+        get 'payments'
+        get 'users'
+      end
+    end
+    # resource :user_sessions, only:[:create,:destroy,:new]
+    resources :payments, only:[:show,:index,:destroy] do
       member do
         get 'checkout'
         post 'confirm', to: 'payments#pay'
+        put 'confirm', to: 'payments#modify_code'
         get 'confirm' 
       end
     end
+    devise_for :departments, :controllers => { :sessions => "book/sessions" },path: 'department' ,path_names: {sign_in: 'login',sign_out: 'logout'}
+
   end
   #root 'home#index'
   # The priority is based upon order of creation: first created -> highest priority.

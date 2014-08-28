@@ -3,13 +3,20 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .payment-accordion  {
   @include accordion-container;
-
+  margin-top: 2em;
   .payment-accordion-navigation  {
     $payment-accordion-navigation-bg-color:$primary-color;
       @include accordion-navigation(
         $bg:$payment-accordion-navigation-bg-color, 
         $hover-bg:scale-color($payment-accordion-navigation-bg-color, $lightness: 10%),
         $active-bg:scale-color($payment-accordion-navigation-bg-color, $lightness: 10%)
+        );
+      @include box-shadow(
+        $top:0, 
+        $left:0, 
+        $blur:6px, 
+        $spread:4px, 
+        $color: rgba(0,0,0,0.2)
         );
       >.payment-content  {
         @include accordion-content(
@@ -20,9 +27,11 @@
 }
 
 .active-payment-label{
-  @extend .secondary;
-  font-size:0.9em
-
+  @include label(
+    $text-size:0.9em,
+    $bg:$info-color)
+  //@extend .info;
+  //font-size:
 }
 .checked-out-payment-label{
   @extend .alert;
@@ -46,9 +55,30 @@
     margin-bottom:0;
   }
 .button.checkout-button{
-    @include button($bg:scale-color($secondary-color, $lightness: -20%));
+    @include button($bg:$primary-color);
     margin-bottom:0;
 }
-input.confirm-code, .confirm-button{
+input.confirm-code, .confirm-button, input.modify-confirm-code, .modify-confirm-button{
     margin-bottom:0;
+}
+.member-label{
+  font-size:0.9em
+}
+.bottom-checkout-bar{
+  height:45px;
+  position:fixed;
+  bottom:-45px;
+  left:0;
+  background-color:$topbar-bg-color;
+  color:white;
+  div{
+    margin:0 auto;
+  }
+  .product-checkout-button{
+    margin:0.3em;
+    padding:0.4em 0.9em;
+  }
+}
+.bottom-buffer{
+  height:55px;
 }

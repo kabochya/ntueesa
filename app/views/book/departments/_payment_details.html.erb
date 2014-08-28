@@ -1,0 +1,37 @@
+<div class="small-12">
+	<div class="clearfix" style="margin-bottom:0.5em;">
+		<span class="left" style="margin-right:0.5em;">#<%= payment.id %></span>
+		<span class="left" style="margin-right:0.5em;"><%= payment.user.account %></span>
+		<% d=current_book_department %>
+		<%  if d.has_member %>
+		<span class="left label member-label">
+		
+		<%=	payment.user.is_member ? '會員' : '非會員' %>
+		
+		</span>
+		<% end %>
+		<%= content_tag(:span, payment.status_label, class: "right label "+payment.status_class) %>
+	</div>
+<table class="small-12">
+	<thead>
+		<tr>
+			<th class="small-9 text-center">書名</th>
+			<th class="small-3 text-center">價格</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% payment.books.each do |b|%>
+		<tr>
+			<td><%= b.title %></td>
+			<td class="text-right"><%= payment.user.is_member ? b.member_price(d.id) : b.nonmember_price(d.id) %></td>
+		</tr>
+		<% end %>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td class="text-right">總計</td>
+			<td class="text-right"><%= payment.cost %></td>
+		</tr>
+	</tfoot>
+</table>
+  <a class="close-reveal-modal">&#215;</a>

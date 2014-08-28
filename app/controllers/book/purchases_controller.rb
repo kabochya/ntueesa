@@ -1,33 +1,39 @@
 class Book::PurchasesController < Book::ApplicationController
-  before_action :authenticate_user!
-  def create
-    u=current_user
-    case u.purchase_validate params[:book_id]
-      when 0
-        act_pay=u.payments.active
-        if act_pay.exists?
-          p=act_pay.first.purchases.create(book_id: params[:book_id])
-        else
-          newpay=u.payments.create
-          p=newpay.purchases.create(book_id: params[:book_id])
-        end
-        render json: {status: 1, purchase_id: p.id }
-      when 1..2
-        render json: {status: 0}
-    end
+  skip_before_action :auth_user!
+  before_action :authenticate_book_department!
+
+  def status
+  	if (user = current_book_department.users.where(id:params[:id]).first)
+	  	if(pur = user.purchases.where(id:params[:purchase_id]).first)
+	  		mod_stat pur
+	  		render json:{status:1}
+	  	else
+	  		BookLog.fail_record(action_name,current_book_department,Purchase,"Failed to modify status of purchase "+ id.to_i)
+	  		render json:{status:0}
+	  	end
+	  else
+	  	BookLog.fail_record(action_name,current_book_department,Purchase,"No permission to modify status of purchase "+params[:purchase_id].to_i)
+	  	render json:{status:0}
+	  end
   end
 
-  def destroy
-    #params[:id] is the book's id to destroy
-    pur=current_user.purchases.where(book_id: params[:id]).first
-      if pur&&(pur.payment.status==0)
-        pur.delete
-        if pur.payment.purchases.empty?
-          pur.payment.delete
-        end
-        render json: {status: 1}
-      else
-        render json: {status: 0}
-      end
+  def status_all
+  	if (user = current_book_department.users.where(id:params[:id]).first)
+	  	user.purchases.where(status:false).each do |pur|
+	  		mod_stat pur
+	  	end
+	  	render json:{status:1}
+	  else
+	  	BookLog.fail_record(action_name,current_book_department,Purchase,"No permission to modify all purchases status of User "+params[:id].to_i)
+	  	render json:{status:0}
+	  end
+	  	
+  end
+protected
+
+  def mod_stat pur
+			pur.status = pur.status ? false : true
+			pur.save
+  		BookLog.success_record(action_name+'_'+pur.status.to_s,current_book_department,pur)
   end
 end

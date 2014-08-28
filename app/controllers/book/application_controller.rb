@@ -1,8 +1,41 @@
 class Book::ApplicationController < ApplicationController
+	layout "book/user"
+	#before_action :destroy_department_session
+	before_action :auth_user!
 
-	protected
+	def system_closed
+    if Setting.phase==0||Setting.phase==3
+      redirect_to book_closed_path
+    end
+  end
 
-	def authenticate_user!
+	def block_phase ph
+		if Setting.phase == ph
+			respond_to do |format|
+				format.html {redirect_to  book_prohibited_path }
+				format.json {render json: {status:-1}}
+			end
+			return false
+		end
+		return true
+	end
+
+	def prohibited
+		
+	end
+
+	def closed
+		render 'closed', layout: false
+	end
+
+	def destroy_department_session
+		if book_department_signed_in?
+			sign_out(current_book_department)
+		end
+		return true
+	end
+	
+	def auth_user!
 		unless session[:user_id]&&session[:expires_at]
 			respond_to do |format|
 		      format.html { redirect_to book_login_path }
@@ -25,16 +58,20 @@ class Book::ApplicationController < ApplicationController
 			return true
 		end
 	end
-	def user_logined
-		if session[:user_id]&&(session[:expires_at]>Time.current)
-			redirect_to book_list_path
-			return false
-		end
-		return true
-	end
-
+	
 	def current_user
 		@current_user ||=User.find(session[:user_id]) if session[:user_id]
+	end
+
+	def phase ph
+		case ph.class.to_s
+		when 'Range'
+			ph.include?(Setting.phase)
+		when 'Fixnum'
+			ph==Setting.phase
+		else
+			return false
+		end
 	end
 
 	def user_signed_in?
@@ -42,4 +79,5 @@ class Book::ApplicationController < ApplicationController
 	end
 
 	helper_method :current_user
+	helper_method :phase
 end

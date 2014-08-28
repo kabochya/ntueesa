@@ -2,7 +2,7 @@
 你沒有訂任何書喔
 </div>
 <% if !@payments.empty? %>
-  <div class="small-12 medium-8 small-centered column">
+  <div class="small-12  small-centered column">
     <dl class="accordion payment-accordion" data-accordion data-options="multi_expand: true">
       <%= render partial: 'accordion', collection: @payments, as: :p %>
     </dl>

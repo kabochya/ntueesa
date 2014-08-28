@@ -6,6 +6,14 @@ class User < ActiveRecord::Base
 	LOGIN_FAIL=2
 	CONNECTION_FAIL=3
 
+	def confirmed_purchase_list
+		Purchase.joins(:payment).where(payments:{user_id:id,status:3})
+	end
+
+	def self.has_book_in_payment(book_id,status_range)
+		joins(payments: :purchases).where(purchases:{book_id: book_id},payments:{status: status_range})
+	end
+
 	def purchase_css_class book_id
 		status=['book-not-purchased','book-purchased','book-checked-out']
 		valid=purchase_validate book_id

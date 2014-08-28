@@ -1,0 +1,12 @@
+<%= form_tag payments_book_department_path(meth:meth) ,method: :get ,remote: true,  class: 'small-2 small-centered columns dept-payment-search-form' do%>
+  <div class="row collapse">
+    <div class="small-10 columns">
+      <%= text_field_tag 'search', nil, placeholder:"搜尋確認碼" , class: 'dept-payment-search-field' %>
+    </div>
+    <div class="small-2 columns">
+      <%= button_tag(class: 'button postfix') do%>
+        <i class="fi-magnifying-glass"></i>
+      <% end %>
+    </div>
+  </div>
+<% end %>

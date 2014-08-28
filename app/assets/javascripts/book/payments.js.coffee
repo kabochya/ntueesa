@@ -2,13 +2,18 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
+  $(".item-button").on "click", () ->
+    $('.bottom-checkout-bar').animate({bottom:0 },1000)
+    return
   $(".purchase-cancel-button").on "ajax:success", (event, data, status, xhr) ->
+    return if ajaxResponseStatusFilter(data)
     if data.status
       totalDOM=$(this).parents('tbody').find('.total')
       total = parseInt(totalDOM.text())-parseInt($(this).parent("td").next("td").text())
       totalDOM.text(total)
       if $(this).parents("tbody").children('tr').size()==1
         $(this).parents('dd.payment-accordion-navigation').slideUp(()->
+          $(this).next().remove() # remove <br>
           $(this).remove()
           removeAccordianNavCallback()
           return
@@ -17,8 +22,10 @@ $ ->
     return
 
   $(".payment-accordion").on "ajax:success", ".payment-cancel-button", (event, data, status, xhr) ->
+    return if ajaxResponseStatusFilter(data)
     if data.status
       $(this).parents('dd.payment-accordion-navigation').slideUp(()->
+          $(this).next().remove() # remove <br>
           $(this).remove()
           removeAccordianNavCallback()
           return
@@ -26,17 +33,24 @@ $ ->
     return
 
   $(".checkout-button").on "ajax:success", (event, data, status, xhr) ->
+    return if ajaxResponseStatusFilter(data)
     if data.status
-      $parent=$(this).parents('dd.payment-accordion-navigation')
-      $parent.replaceWith(data.html)
-      enableTopAccordion()
+      removeAndReplace(data,$(this))
     return
 
-  $(".confirm-form").on "ajax:success", (event, data, status, xhr) ->
+  $(".payment-accordion").on "ajax:success",".confirm-form", (event, data, status, xhr) ->
+    return if ajaxResponseStatusFilter(data)
     if data.status
-      $parent=$(this).parents('dd.payment-accordion-navigation')
-      $parent.replaceWith(data.html)
-      enableTopAccordion()
+      removeAndReplace(data,$(this))
+    else
+      $(this).next('.confirm-status').hide().text('Confirm failed.').show().delay(800).fadeOut()
+    return
+  $(".modify-confirm-form").on "ajax:success", (event, data, status, xhr) ->
+    return if ajaxResponseStatusFilter(data)
+    if data.status
+      $(this).next('.confirm-status').hide().text('Confirm Success.').show().delay(800).fadeOut()
+    else
+      $(this).next('.confirm-status').hide().text('Confirm failed.').show().delay(800).fadeOut()
     return
   enableTopAccordion = ()->
     $('dd.payment-accordion-navigation:first').addClass('active')
@@ -51,4 +65,12 @@ $ ->
     else
       enableTopAccordion()
     return
+  removeAndReplace = (data,$obj)->
+    $parent=$obj.parents('dd.payment-accordion-navigation')
+    $parent.next().remove()
+    $parent.replaceWith(data.html)
+    enableTopAccordion()
+    return
+
+  enableTopAccordion()  
   return

@@ -1,33 +1,74 @@
 // Place all the styles related to the book/product controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.product-wrapper{
+  margin-top: 2em;
+}
+.item-row{
+  @extend .row;
+  margin: 0 auto;
+}
 .item-box{
-  border:1px solid black;
+  padding:5px;
+  min-height:100px; 
+  height: 10%;
+}
+.item-inner{
+  padding:10px;
+  @include box-shadow(
+    $top: 0, $left: 0, $blur: 5px, $spread:2px, $color: rgba(0,0,0,0.1)
+    );
+  @include radius(
+    $radius:3px
+    );
+}
+.item-button{
+  @extend .button;
+  border:solid transparent;
+  border-width:inherit;
+}
+.item-image{
+  margin: 5px 0 10px;
 }
 .book-not-purchased{
-  >.cancel-button{
+  .cancel-button{
     display:none
   }
-  >.checked-out-button{
+  .checked-out-button{
     display:none
   }
 }
 .book-purchased{
-  >.purchase-form{
+  .purchase-form{
     display:none
   }
-  >.checked-out-button{
+  .checked-out-button{
     display:none
   }
 }
 .book-checked-out{
-  >.purchase-form{
+  .purchase-form{
     display:none
   }
-  >.cancel-button{
+  .cancel-button{
     display:none
   }
 }
 .input-button{
   @include button($is-input:true);
+}
+.product-checkout-box{
+  opacity: 0.8;
+  position:fixed;
+  bottom:20%;
+  right:1em;
+  border:1px solid #CCC;
+  &:hover{
+    opacity: 1;
+  }
+
+  padding:10px;
+}
+.product-checkout-button{
+  margin-bottom:0;
 }

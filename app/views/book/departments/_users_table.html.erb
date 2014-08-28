@@ -1,0 +1,31 @@
+<tr uid=<%=user.id%> >
+	<td class="user-id">
+		<%= user.id %>
+	</td>
+	<td>
+		<%= user.account %>
+	</td>
+	<td class="user-payment-checked-out">
+		<%= user.payments.where(status:2).count %>
+	</td>
+	<td class="user-payment-confirmed">
+		<%= user.payments.where(status:3).count %>
+	</td>
+	<td>
+		<% sum=0
+			 user.payments.where(status:3).each do |p| 
+			 sum+=p.cost
+			 end %>
+		<%= sum %>
+	</td>
+	<% if current_book_department.has_member %>
+	<td class="user-is-member text-center"><%= user.is_member ? '會員' : '非會員'%></td>
+	<% end %>
+	<td>
+		<%= link_to '檢視', book_user_path(user.id), remote:true, class: "button tiny dept-payment-view-button", data:{'reveal-id'=>'user-detail-modal','reveal-ajax'=>true}%>
+		<% if current_book_department.has_member %>
+		<%= link_to (user.is_member ? '取消會員' : '新增會員') , member_book_user_path(user.id), remote:true, method: :put, class: "button tiny dept-user-member-button"+(user.is_member ? ' alert' : ' success')%>
+		<% end %>
+		<%= link_to '領書',  list_book_user_path(user.id), remote:true, class: "button tiny success dept-payment-view-button", data:{'reveal-id'=>'user-book-list-modal','reveal-ajax'=>true}%>
+	</td>
+</tr>
