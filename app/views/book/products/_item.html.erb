@@ -2,14 +2,14 @@
 	<div class="item-box medium-4 columns <%= current_user.purchase_css_class(item.id)+' '+(item_counter==total_count-1 ? 'end' : '') %>">
 		<div class="item-inner clearfix">
 			<div class="item-info" >
-				<h2 class="small-12 columns"><%= item.department_books.where(department_id: d.id).first.course%></h2>
-				<div class="small-6 medium-12 large-6 columns">
+				<div class="small-12 columns item-title "><%= item.department_books.where(department_id: d.id).first.course%></div>
+				<div class="small-6 medium-8 medium-centered columns">
 				<a class="th item-image">
 				<%= image_tag( item.image_link ) %>
 				</a>
 				</div>
-				<div class="small-6 medium-12 large-6 columns">
-					<div class="small-12" style="word-wrap:break-word"><%= item.title %></div>
+				<div class="small-6 medium-12 columns">
+					<div class="small-12" style="word-wrap:break-word;font-size:0.8em;"><%= item.title %></div>
 					<div><%= item.author %></div>
 					<div>
 					<% if current_user.is_member %>
