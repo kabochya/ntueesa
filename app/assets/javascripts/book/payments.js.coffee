@@ -43,14 +43,14 @@ $ ->
     if data.status
       removeAndReplace(data,$(this))
     else
-      $(this).next('.confirm-status').hide().text('Confirm failed.').show().delay(800).fadeOut()
+      $(this).next('.confirm-status').hide().text('確認碼登錄失敗，請重試或聯絡網管人員。').show().delay(1200).fadeOut()
     return
   $(".modify-confirm-form").on "ajax:success", (event, data, status, xhr) ->
     return if ajaxResponseStatusFilter(data)
     if data.status
-      $(this).next('.confirm-status').hide().text('Confirm Success.').show().delay(800).fadeOut()
+      $(this).next('.confirm-status').hide().text('確認碼登錄成功，請等候處理。').show().delay(1200).fadeOut()
     else
-      $(this).next('.confirm-status').hide().text('Confirm failed.').show().delay(800).fadeOut()
+      $(this).next('.confirm-status').hide().text('確認碼登錄失敗，請重試或聯絡網管人員。').show().delay(1200).fadeOut()
     return
   enableTopAccordion = ()->
     $('dd.payment-accordion-navigation:first').addClass('active')

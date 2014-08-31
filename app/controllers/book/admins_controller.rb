@@ -43,7 +43,7 @@ class Book::AdminsController < Book::ApplicationController
 
 	def create_dept
 			begin
-				Department.create!(dept_account:params[:dept_account],password:params[:password],dept_name:params[:dept_name],has_member: params[:has_member] ? true : false)
+				Department.create!(dept_account:params[:dept_account],password:params[:password],dept_name:params[:dept_name],has_member: params[:has_member] ? true : false,payment_info: params[:payment_info].length>0 ? params[:payment_info] : nil)
 				redirect_to edit_book_admin_path, alert:'Successfully created dept'
 			rescue 
 			redirect_to edit_book_admin_path, alert:'Failed to create dept'

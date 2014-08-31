@@ -41,7 +41,7 @@
 
     <% elsif p.status==1%>
     <div class="row">
-      <%= form_tag confirm_book_payment_path(p.id), remote: true, data: {type: 'json'}, class: 'medium-12 large-4 columns confirm-form' do%>
+      <%= form_tag confirm_book_payment_path(p.id), remote: true, data: {type: 'json'}, class: 'small-12 medium-4 columns confirm-form' do%>
         <div class="row collapse">
           <div class="small-8 columns">
             <%= text_field_tag 'confirm_code', nil, placeholder:"確認碼" , class: 'confirm-code'%>
@@ -51,14 +51,17 @@
           </div>
         </div>
       <% end %>
-      <div class="small-12 large-2 confirm-status columns"></div>
-      <div class="show-for-large-up large-2 payment-cancel right">
+      <div class="small-12 medium-2 confirm-status columns"></div>
+      <div class="small-12 medium-3 large-2 text-center columns" style="margin-top:0.45em">
+        <span data-tooltip aria-haspopup="true" class="has-tip" title="<%= current_user.department.payment_info||'請洽詢系學會負責單位'%>">繳款資訊</span>
+      </div>
+      <div class="show-for-medium-up medium-2 payment-cancel right">
         <% if phase(1) %>
         <%= link_to "取消訂單", book_payment_path(p.id), method: :delete, remote: true, data: {type: 'json'} , class: 'button alert expand payment-cancel-button'%>
         <% end %>
       </div>
     </div>
-    <div class="small-4 hide-for-large-up small-centered payment-cancel">
+    <div class="small-4 hide-for-medium-up small-centered payment-cancel" style="margin: 1em auto">
         <% if phase(1) %>
         <%= link_to "取消訂單", book_payment_path(p.id), method: :delete, remote: true, data: {type: 'json'} , class: 'button alert expand payment-cancel-button'%>
         <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140825180516) do
+ActiveRecord::Schema.define(version: 20140831133306) do
 
   create_table "book_logs", force: true do |t|
     t.string   "role"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20140825180516) do
     t.datetime "updated_at"
     t.string   "dept_name"
     t.boolean  "has_member",          default: false
+    t.text     "payment_info"
   end
 
   add_index "departments", ["dept_account"], name: "index_departments_on_dept_account", unique: true, using: :btree
