@@ -58,6 +58,26 @@ class Book::AdminsController < Book::ApplicationController
 			Department.find(params[:department_id]).import_books(params[:file])
 			redirect_to edit_book_admin_path, alert:'Successfully imported books'
 	end
+
+	def dept_edit_phase
+		d=Department.find(params[:department_id])
+		render partial: 'dept_edit_phase', locals:{d:d}
+	end
+
+	def dept_update_phase
+		d=Department.find(params[:id])
+		case params[:dept_phase]
+		when 'off'
+		d.settings.phase=0
+		when 'buy'	
+		d.settings.phase=1
+		when 'confirm'
+		d.settings.phase=2
+		when 'dist'
+		d.settings.phase=3
+	end
+	redirect_to edit_book_admin_path, alert:'Successfully changed department phase'
+	end
 	private
 	def auth_admin!
 		if !session[:admin]

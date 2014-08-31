@@ -1,13 +1,13 @@
 <dd class="accordion-navigation payment-accordion-navigation <%= 'active 'if p.status==0%>">
-  <a href="#payment_<%= p.id%>">Payment <%= '@'+p.updated_at.strftime("%Y %m/%d %H:%M")%>
+  <a href="#payment_<%= p.id%>"><%= '更新於'+p.updated_at.strftime("%m/%d %H:%M")%>
     <span class="label <%= p.status_class %> right"><%= p.status_label%></span>
   </a>
   <div id="payment_<%= p.id%>" class="content payment-content <%= 'active' if p.status==0%>">
     <table class="small-12">
       <thead>
         <tr>
-          <th class="small-11">Title</th>
-          <th class="small-1">Price</th>
+          <th class="small-9 medium-11">Title</th>
+          <th class="small-3 medium-1">Price</th>
         </tr>
       </thead>
       <tbody>
@@ -41,23 +41,28 @@
 
     <% elsif p.status==1%>
     <div class="row">
-      <%= form_tag confirm_book_payment_path(p.id), remote: true, data: {type: 'json'}, class: 'small-4 columns confirm-form' do%>
+      <%= form_tag confirm_book_payment_path(p.id), remote: true, data: {type: 'json'}, class: 'medium-12 large-4 columns confirm-form' do%>
         <div class="row collapse">
           <div class="small-8 columns">
-            <%= text_field_tag 'confirm_code', nil, placeholder:"Confirmation Code" , class: 'confirm-code'%>
+            <%= text_field_tag 'confirm_code', nil, placeholder:"確認碼" , class: 'confirm-code'%>
           </div>
           <div class="small-4 columns">
-            <%= submit_tag "Confirm", data:{type: 'json'},class: 'button postfix confirm-button' %>
+            <%= submit_tag "確認", data:{type: 'json'},class: 'button postfix confirm-button' %>
           </div>
         </div>
       <% end %>
-      <div class="small-2 confirm-status columns"></div>
-      <div class="small-2 payment-cancel columns">
+      <div class="small-12 large-2 confirm-status columns"></div>
+      <div class="show-for-large-up large-2 payment-cancel right">
         <% if phase(1) %>
-        <%= link_to "取消訂單", book_payment_path(p.id), method: :delete, remote: true, data: {type: 'json'} , class: 'button alert expand payment-cancel-button' %>
+        <%= link_to "取消訂單", book_payment_path(p.id), method: :delete, remote: true, data: {type: 'json'} , class: 'button alert expand payment-cancel-button'%>
         <% end %>
       </div>
     </div>
+    <div class="small-4 hide-for-large-up small-centered payment-cancel">
+        <% if phase(1) %>
+        <%= link_to "取消訂單", book_payment_path(p.id), method: :delete, remote: true, data: {type: 'json'} , class: 'button alert expand payment-cancel-button'%>
+        <% end %>
+      </div>
 
     <% elsif p.status==2%>
     <div class="row">

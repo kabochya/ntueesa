@@ -34,7 +34,7 @@ class Department < ActiveRecord::Base
     return sum
   end
   def import_users file
-    if dept_name=='電機'
+    if id==1
       ActiveRecord::Base.transaction do
         CSV.foreach(file.path, headers: true) do |row|
           EeUser.create! row.to_hash.merge!(department_id:id)

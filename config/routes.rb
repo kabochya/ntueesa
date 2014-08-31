@@ -15,6 +15,8 @@ Rails.application.routes.draw do
         post 'department', to: 'admins#create_dept'
         post 'users', to: 'admins#import_users'
         post 'books', to: 'admins#import_books'
+        get 'dept_change_phase', to: 'admins#dept_edit_phase'
+        put 'dept_change_phase/:id', to: 'admins#dept_update_phase', as: 'update_dept_phase'
       end
     end
     resources :users, only:[:show] do

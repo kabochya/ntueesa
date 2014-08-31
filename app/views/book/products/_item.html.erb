@@ -2,7 +2,7 @@
 	<div class="item-box medium-4 columns <%= current_user.purchase_css_class(item.id)+' '+(item_counter==total_count-1 ? 'end' : '') %>">
 		<div class="item-inner clearfix">
 			<div class="item-info" >
-				<h3 class="small-12 columns"><%= item.department_books.where(department_id: d.id).first.course%></h3>
+				<h2 class="small-12 columns"><%= item.department_books.where(department_id: d.id).first.course%></h2>
 				<div class="small-6 medium-12 large-6 columns">
 				<a class="th item-image">
 				<%= image_tag( item.image_link ) %>
