@@ -1,0 +1,14 @@
+<%= form_tag( book_admin_path , method: :put, class: "global_settings_form") do%>
+	<div>
+	<%= label_tag :admin_email, 'Admin Email'%>
+	<%= email_field_tag :admin_email, Setting.admin_email %>
+	</div>
+	<div>
+	<%= label_tag :system_phase, 'System phase'%>
+	<%= label_tag :system_phase_off, 'Off' %>
+	<%= radio_button_tag :system_phase,'off',Setting.phase==0 ? true:nil %>
+	<%= label_tag :system_phase_on, 'On' %>
+	<%= radio_button_tag :system_phase,'on',Setting.phase!=0 ? true:nil %>
+	</div>
+	<div><%= submit_tag 'Save' %></div>
+<% end %>

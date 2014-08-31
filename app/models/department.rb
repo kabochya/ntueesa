@@ -1,4 +1,6 @@
 class Department < ActiveRecord::Base
+  include RailsSettings::Extend
+  after_create :default_phase
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :timeoutable, :rememberable, :trackable, :validatable, authentication_keys:[:dept_account]
@@ -7,6 +9,10 @@ class Department < ActiveRecord::Base
   has_many :department_books
   has_many :books, through: :department_books
   has_many :purchases, through: :books
+
+  def default_phase
+    self.settings.phase = 0
+  end
   def email_required?
     false
   end
@@ -35,6 +41,6 @@ class Department < ActiveRecord::Base
       cost=b.price
       sum+=count*cost
     end
-    return (sum*1.01).ceil
+    return sum
   end
 end

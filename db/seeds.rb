@@ -6,4 +6,5 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Setting.phase = 1;
+Setting.phase = 0
+Setting.admin_password = Digest::SHA256.new.digest 'bbb' # Admin password here

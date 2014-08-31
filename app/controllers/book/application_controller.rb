@@ -1,10 +1,11 @@
 class Book::ApplicationController < ApplicationController
 	layout "book/user"
 	#before_action :destroy_department_session
-	before_action :auth_user!
+
+	before_action :auth_user!,except:[:closed,:prohibited]
 
 	def system_closed
-    if Setting.phase==0||Setting.phase==3
+    if (Setting.phase==0)
       redirect_to book_closed_path
     end
   end
@@ -66,9 +67,9 @@ class Book::ApplicationController < ApplicationController
 	def phase ph
 		case ph.class.to_s
 		when 'Range'
-			ph.include?(Setting.phase)
+			ph.include?(current_user.department.settings.phase)
 		when 'Fixnum'
-			ph==Setting.phase
+			ph==current_user.department.settings.phase
 		else
 			return false
 		end

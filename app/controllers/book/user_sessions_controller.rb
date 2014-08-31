@@ -4,7 +4,14 @@ class Book::UserSessionsController < Book::ApplicationController
   skip_before_action :auth_user!, only: [:new,:create]
   #before_action :auth_user!, only: :destroy
   layout "book/login"
-
+  def system_closed
+    super
+  end
+  def department_closed
+    if (current_user.department.settings.phase==0)||(current_user.department.settings.phase==3)
+      redirect_to book_closed_path
+    end
+  end
   def user_logined
     if session[:user_id]&&(session[:expires_at]>Time.current)
       redirect_to book_shop_path

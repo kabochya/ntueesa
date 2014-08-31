@@ -1,6 +1,7 @@
 // Place all the styles related to the book/application controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "foundation";
 @mixin box-shadow($top, $left, $blur, $spread, $color, $inset: false) {
   @if $inset {
     -webkit-box-shadow:inset $top $left $blur $spread $color;
@@ -12,17 +13,13 @@
       box-shadow: $top $left $blur $spread $color;
     }
   }
-
-@import "products";
-@import "purchases";
-@import "payments";
-@import "departments";
-
+.login-wrapper{
+  margin-top:2em;
+}
 .flash-box{
   margin-top: 2em;
 }
 .sidebar {
-  
   color: $info-color;
   left: 0px;
   top: 0px;
@@ -78,3 +75,8 @@
 .user-info{
 	font-size:1.25em;
 }
+
+@import "products";
+@import "purchases";
+@import "payments";
+@import "departments";

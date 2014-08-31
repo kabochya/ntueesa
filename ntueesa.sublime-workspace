@@ -844,6 +844,13 @@
 		"whole_word": false,
 		"wrap": true
 	},
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "/home/pml/rorprojects/ntueesa"
+		}
+	],
 	"groups":
 	[
 		{

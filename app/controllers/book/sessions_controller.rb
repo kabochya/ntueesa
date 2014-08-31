@@ -2,8 +2,11 @@ class Book::SessionsController < Devise::SessionsController
   before_action :system_closed
 	after_action :log_failed_login, :only => :new
 	layout "book/login"
+  def department_closed
+    
+  end
 	def after_sign_in_path_for(resource_or_scope)
-    if Setting.phase==0
+    if (Setting.phase==0)||(current_book_department.settings.phase==0)
       book_closed_path
     else
       book_department_path

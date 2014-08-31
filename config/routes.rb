@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get 'shop' => 'products#index', as: 'shop'
     get 'closed' => 'application#closed'
     get 'prohibited' => 'application#prohibited'
+    resource :admin
     resources :users, only:[:show] do
       member do
         put 'member', to: 'users#modify_membership'
