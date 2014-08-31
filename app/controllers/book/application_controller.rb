@@ -2,6 +2,7 @@ class Book::ApplicationController < ApplicationController
 	layout "book/user"
 	#before_action :destroy_department_session
 	before_action :system_closed
+	before_action :department_closed
 	before_action :auth_user!,except:[:closed,:prohibited]
 
 	def system_closed
@@ -9,7 +10,11 @@ class Book::ApplicationController < ApplicationController
       redirect_to book_closed_path
     end
   end
-
+  def department_closed
+    if (current_user.department.settings.phase==0)||(current_user.department.settings.phase==3)
+      redirect_to book_closed_path
+    end
+  end
 	def block_phase ph
 		if Setting.phase == ph
 			respond_to do |format|
