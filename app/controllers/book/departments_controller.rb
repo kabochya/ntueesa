@@ -1,12 +1,10 @@
 class Book::DepartmentsController < ApplicationController
 	layout "book/department"
 	before_action :authenticate_book_department!
-
   def show
   	@d = current_book_department  	
   	@books = @d.books
   end
-
 	def payments
 		@meth_i=0
 		meth_arr=[1..3,1,2,3]

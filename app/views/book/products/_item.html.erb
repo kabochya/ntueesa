@@ -12,12 +12,14 @@
 					<div class="small-12" style="word-wrap:break-word"><%= item.title %></div>
 					<div><%= item.author %></div>
 					<div>
-					<%= 
-						if current_user.is_member
-							"$ #{item.member_price(d.id)}<span style=\"text-decoration:line-through\">#{item.nonmember_price(d.id)}</span>"
-						else
-							"$ #{item.nonmember_price(d.id)}"
-						end%>
+					<% if current_user.is_member %>
+							$<%=item.member_price(d.id) %>
+							 <span style="text-decoration:line-through">
+							$<%=item.nonmember_price(d.id) %>
+							 </span>
+					<% else %>
+							$<%=item.nonmember_price(d.id) %>
+					<% end %>
 					</div>
 				</div>
 			</div>

@@ -9,7 +9,14 @@ Rails.application.routes.draw do
     get 'shop' => 'products#index', as: 'shop'
     get 'closed' => 'application#closed'
     get 'prohibited' => 'application#prohibited'
-    resource :admin
+    resource :ntueesa_book_admin, controller: :admins,as: :admin, except: :new do
+      collection do
+        get 'login', to: 'admins#new'
+        post 'department', to: 'admins#create_dept'
+        post 'users', to: 'admins#import_users'
+        post 'books', to: 'admins#import_books'
+      end
+    end
     resources :users, only:[:show] do
       member do
         put 'member', to: 'users#modify_membership'

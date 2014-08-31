@@ -1,14 +1,69 @@
-<%= form_tag( book_admin_path , method: :put, class: "global_settings_form") do%>
-	<div>
-	<%= label_tag :admin_email, 'Admin Email'%>
-	<%= email_field_tag :admin_email, Setting.admin_email %>
+<div class="small-8 small-centered columns">
+	<div class="small-6 columns">
+		<h2>Settings</h2>
+		<div class="panel">
+		<%= form_tag( book_admin_path , method: :put, class: "global_settings_form") do%>
+			<div>
+			<%= label_tag :admin_email, 'Admin Email'%>
+			<%= email_field_tag :admin_email, Setting.admin_email %>
+			</div>
+			<div>
+			<%= label_tag :system_phase, "System Phase" %>
+			<div class="small-4">
+	      <%= radio_button_tag :system_phase,'off',Setting.phase==0 ? true:nil %>
+	      <%= label_tag :system_phase_off, "Off" %>
+	      <%= radio_button_tag :system_phase,'on',Setting.phase!=0 ? true:nil %>
+	      <%= label_tag :system_phase_on, 'On' %>
+		 	</div>
+			</div>
+			<div><%= submit_tag 'Save' %></div>
+		<% end %>
+		</div>
 	</div>
-	<div>
-	<%= label_tag :system_phase, 'System phase'%>
-	<%= label_tag :system_phase_off, 'Off' %>
-	<%= radio_button_tag :system_phase,'off',Setting.phase==0 ? true:nil %>
-	<%= label_tag :system_phase_on, 'On' %>
-	<%= radio_button_tag :system_phase,'on',Setting.phase!=0 ? true:nil %>
+	<div class="small-6 columns">
+		<h2>Create Department</h2>
+		<div class="panel">
+		<%= form_tag(department_book_admin_path ,class: "create-department-form") do %>
+			<div class="small-7">
+			<%= label_tag :dept_account, 'Department Account' %>
+			<%= text_field_tag :dept_account %>
+			</div>
+			<div class="small-7">
+			<%= label_tag :password, 'Department Password' %>
+			<%= password_field_tag :password %>
+			</div>
+			<div class="small-7">
+			<%= label_tag :dept_name, 'Department name' %>
+			<%= text_field_tag :dept_name %>
+			</div>
+			<div>
+			<%= label_tag :has_member, 'Has Members?'%>
+			<%= check_box_tag(:has_member) %>
+			</div>
+			<%= submit_tag 'Create' %>
+		<% end %>
+		</div>
 	</div>
-	<div><%= submit_tag 'Save' %></div>
-<% end %>
+	<div class="small-6 columns">
+		<h2>Import Users To Department</h2>
+		<div class="panel">
+		<%= form_tag(users_book_admin_path,multipart:true ,class: "create-department-form") do %>
+			<%= label_tag :department_id, 'Department' %>
+			<%= select_tag(:department_id, options_for_select(Department.pluck(:dept_name,:id))) %>
+			<%= file_field_tag :file %>
+  		<%= submit_tag "Import" %>
+		<% end %>
+		</div>
+	</div>
+	<div class="small-6 columns">
+		<h2>Import Books To Department</h2>
+		<div class="panel">
+		<%= form_tag(books_book_admin_path,multipart:true ,class: "create-department-form") do %>
+			<%= label_tag :department_id, 'Department' %>
+			<%= select_tag(:department_id, options_for_select(Department.pluck(:dept_name,:id))) %>
+			<%= file_field_tag :file %>
+  		<%= submit_tag "Import" %>
+		<% end %>
+		</div>
+	</div>
+</div>

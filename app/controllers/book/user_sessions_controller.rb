@@ -1,5 +1,5 @@
 class Book::UserSessionsController < Book::ApplicationController
-  before_action :system_closed
+  #before_action :system_closed
 	before_action :user_logined, only: [:new,:create]
   skip_before_action :auth_user!, only: [:new,:create]
   #before_action :auth_user!, only: :destroy
@@ -32,23 +32,23 @@ class Book::UserSessionsController < Book::ApplicationController
       	user.update(login_count: user.login_count+1)
       	user.save
         BookLog.create!(action:'login',role:'User',role_id: user.id,location:request.remote_ip)
-      	redirect_to after_login_redirect_path, notice: "Logged in!"
+      	redirect_to after_login_redirect_path, notice: "登入成功"
       else
       	#flash.alert = "Invalid account or password."
         BookLog.create!(action:'login_fail',role:'User',location:request.remote_ip,message:'User login failed where account: '+params[:account].to_s)
-      	redirect_to book_login_path, alert:"Invalid account or password."
+      	redirect_to book_login_path, alert:"帳號或密碼錯誤"
       end
     else
       #flash.alert = "Invalid login."
       BookLog.create!(action:'login_fail',role:'User',location:request.remote_ip,message:'User login with invalid account: '+params[:account].to_s)
-      redirect_to book_login_path, alert:"Invalid account or password."
+      redirect_to book_login_path, alert:"帳號或密碼錯誤"
     end
   end
 
   def destroy
   	session[:user_id] = nil
     session[:expires_at] = nil
-  	redirect_to after_login_redirect_path, :notice => "Logged out!"
+  	redirect_to after_login_redirect_path, :notice => "已登出"
   end
   
 protected

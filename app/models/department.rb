@@ -33,7 +33,29 @@ class Department < ActiveRecord::Base
     end
     return sum
   end
-
+  def import_users file
+    if dept_name=='電機'
+      ActiveRecord::Base.transaction do
+        CSV.foreach(file.path, headers: true) do |row|
+          EeUser.create! row.to_hash.merge!(department_id:id)
+        end
+      end
+    else
+      ActiveRecord::Base.transaction do
+        CSV.foreach(file.path, headers: true) do |row|
+          ExtUser.create! row.to_hash.merge!(department_id:id)
+        end
+      end
+    end
+  end
+  def import_books file
+    ActiveRecord::Base.transaction do
+      CSV.foreach(file.path, headers: true) do |row|
+        b=Book.create!(title:row['title'],author:row['author'],image_link:row['image_link'],price:row['price'])
+        b.department_books.create!(department_id: id,course:row['course'],member_adj:row['member_adj'],nonmember_adj:row['nonmember_adj'])
+      end
+    end
+  end
   def total_payable
     sum=0
     books.each do |b|

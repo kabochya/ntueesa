@@ -1,0 +1,20 @@
+<div class="login-wrapper">
+<div class="small-6 small-centered columns">
+	<div class="panel">
+	<h1 class="text-center">登入</h1>
+	<%= form_tag book_admin_path  do %>
+	  <div class="small-12 columns">
+	    <%= label_tag :account, '帳號' %>
+	    <%= text_field_tag :account %>
+	  </div>
+	  <div class="small-12 columns">
+	    <%= label_tag :password,'密碼'%>
+	    <%= password_field_tag :password %>
+	  </div>
+	  <div class="text-center">
+	  	<%= submit_tag "登入",class: "button"%>
+	  </div>
+	<% end %>
+	</div>
+</div>
+</div>
