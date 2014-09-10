@@ -1,7 +1,7 @@
 class Book::PaymentsController < Book::ApplicationController
   skip_before_action :auth_user!, only: [:confirm,:show]
   before_action :authenticate_book_department!, only: [:confirm,:show]
-
+  skip_before_action :department_closed, only:[:confirm,:show]
   before_action only: :destroy do 
     block_phase 2
   end
@@ -31,7 +31,7 @@ class Book::PaymentsController < Book::ApplicationController
       BookLog.success_record(action_name,current_user,pay)
       render json: {status:1}
     else
-      BookLog.fail_record(action_name,current_user,Payment,"Failed to destroy Payment "+params[:id].to_i)
+      BookLog.fail_record(action_name,current_user,Payment,"Failed to destroy Payment "+params[:id].to_s)
       render json: {status:0}
     end
   end
@@ -48,7 +48,7 @@ class Book::PaymentsController < Book::ApplicationController
       render json: {status:1, html:html}
       return
     end
-    BookLog.fail_record(action_name,current_user,Payment,"Failed to checkout Payment "+params[:id].to_i)
+    BookLog.fail_record(action_name,current_user,Payment,"Failed to checkout Payment "+params[:id].to_s)
     render json: {status:0}
   end
 
@@ -66,7 +66,7 @@ class Book::PaymentsController < Book::ApplicationController
         return
       end
     end
-    BookLog.fail_record(action_name,current_user,Payment,"Failed to pay Payment "+params[:id].to_i)
+    BookLog.fail_record(action_name,current_user,Payment,"Failed to pay Payment "+params[:id].to_s)
     render json: {status: 0}
   end
 
@@ -80,7 +80,7 @@ class Book::PaymentsController < Book::ApplicationController
         return
       end
     end
-    BookLog.fail_record(action_name,current_user,Payment,"Failed to modify Payment "+params[:id].to_i+" code to "+params[:confirm_code].to_s)
+    BookLog.fail_record(action_name,current_user,Payment,"Failed to modify Payment "+params[:id].to_s+" code to "+params[:confirm_code].to_s)
     render json: {status: 0}
   end
 
@@ -91,7 +91,7 @@ class Book::PaymentsController < Book::ApplicationController
       pay.save
       render json: {status: 1}
     else
-      BookLog.fail_record(action_name,current_book_department,Payment,"Failed to confirm Payment "+params[:id].to_i)
+      BookLog.fail_record(action_name,current_book_department,Payment,"Failed to confirm Payment "+params[:id].to_s)
       render json: {status: 0}
     end
   end

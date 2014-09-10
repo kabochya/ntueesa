@@ -44,7 +44,7 @@ class Book::UserSessionsController < Book::ApplicationController
   def destroy
   	session[:user_id] = nil
     session[:expires_at] = nil
-  	redirect_to after_login_redirect_path, :notice => "已登出"
+  	redirect_to book_login_path, :notice => "已登出"
   end
   
 protected
@@ -57,7 +57,7 @@ protected
     elsif phase 2
       book_payments_path
     else
-      return false
+      book_closed_path
     end
   end
 end

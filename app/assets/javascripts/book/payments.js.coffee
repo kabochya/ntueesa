@@ -35,6 +35,7 @@ $ ->
   $(".checkout-button").on "ajax:success", (event, data, status, xhr) ->
     return if ajaxResponseStatusFilter(data)
     if data.status
+      $('#payment-info-modal').foundation('reveal','open')
       removeAndReplace(data,$(this))
     return
 

@@ -13,9 +13,9 @@ class Book::DepartmentsController < ApplicationController
 		end
 		meth=meth_arr[@meth_i]
 		if params[:search].nil?||params[:search]==''
-			@payments = current_book_department.payments.where(status:meth).order("updated_at ASC").page(params[:page])
+			@payments = current_book_department.payments.where(status:meth).order("id ASC").page(params[:page])
 		else
-			@payments = current_book_department.payments.where(status:meth, payment_code:params[:search]).order("updated_at ASC").page(params[:page])
+			@payments = current_book_department.payments.where(status:meth, payment_code:params[:search]).order("id ASC").page(params[:page])
 		end
 		respond_to do |format|
 			format.html
@@ -25,9 +25,9 @@ class Book::DepartmentsController < ApplicationController
 
 	def users
 		if params[:search].nil?||params[:search]==''
-			@users = current_book_department.users.order("updated_at ASC").page(params[:page])
+			@users = current_book_department.users.order("id ASC").page(params[:page])
 		else
-			@users = current_book_department.users.where(account:params[:search]).order("updated_at ASC").page(params[:page])
+			@users = current_book_department.users.where(account:params[:search]).order("id ASC").page(params[:page])
 		end
 		respond_to do |format|
 			format.html

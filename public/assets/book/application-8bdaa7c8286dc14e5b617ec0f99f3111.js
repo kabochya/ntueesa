@@ -1,0 +1,1 @@
+(function(){$(function(){return $("a").on("ajax:error",function(n,o){return 401===o.status?window.location.replace("/department/login"):void 0})}),window.ajaxResponseStatusFilter=function(n){return n.location?(window.location=n.location,!0):-1===n.status?(console.log("\u8a72\u529f\u80fd\u7121\u6cd5\u4f7f\u7528"),!0):!1}}).call(this);

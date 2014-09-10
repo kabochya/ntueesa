@@ -1,8 +1,8 @@
 class Book::ApplicationController < ApplicationController
 	layout "book/user"
 	#before_action :destroy_department_session
-	before_action :system_closed
-	before_action :department_closed
+	before_action :system_closed, except: :closed
+	before_action :department_closed,except: :closed
 	before_action :auth_user!,except:[:closed,:prohibited]
 
 	def system_closed

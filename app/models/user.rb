@@ -53,11 +53,12 @@ class User < ActiveRecord::Base
 		cookie=res['set-cookie']
 		dsid=/DSID=[^;]+(?=;)/.match(cookie)
 
-		logout_req= Net::HTTP::Get.new('/dana-na/auth/logout.cgi')
-		logout_req['DNT']=1
-		logout_req['Cookie']=dsid[0]
-		http.request(logout_req)
-
+		if dsid.present?
+			logout_req= Net::HTTP::Get.new('/dana-na/auth/logout.cgi')
+			logout_req['DNT']=1
+			logout_req['Cookie']=dsid[0]
+			http.request(logout_req)
+		end
 		return LOGIN_SUCCESS
 	end
 end

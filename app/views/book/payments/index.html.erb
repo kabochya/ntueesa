@@ -1,3 +1,9 @@
+<div id="payment-info-modal" class="reveal-modal" data-reveal>
+<div style="font-size:1.25em">繳款及確認資訊</div>
+<br>
+<%= (current_user.department.payment_info ? current_user.department.payment_info.html_safe : nil)||'請洽詢系學會以取得匯款及確認資訊' %>
+<a class="close-reveal-modal">&#215;</a>
+</div>
 <div class="no-payments <%= 'hide' unless @payments.empty? %>">
 你沒有訂任何書喔
 </div>

@@ -2,7 +2,7 @@
   <a href="#payment_<%= p.id%>"><%= '更新於'+p.updated_at.strftime("%m/%d %H:%M")%>
     <span class="label <%= p.status_class %> right"><%= p.status_label%></span>
   </a>
-  <div id="payment_<%= p.id%>" class="content payment-content <%= 'active' if p.status==0%>">
+  <div id="payment_<%= p.id%>" class="clearfix content payment-content <%= 'active' if p.status==0%>">
     <table class="small-12">
       <thead>
         <tr>
@@ -20,9 +20,9 @@
               <%= link_to "取消訂購", book_purchase_path(b.id), method: :delete, remote: true, data: {type: 'json'} , class: 'button alert small purchase-cancel-button right' %>
             <% end %>
           </td>
-
-          <td><%=b.price%></td>
-          <% total+=b.price %>
+	  <% temp_price= (current_user.is_member ? b.member_price(current_user.department.id) : b.nonmember_price(current_user.department.id)) %>
+          <td><%=temp_price%></td>
+          <% total+=temp_price %>
         </tr>
         <% end %>
       </tbody>
@@ -52,13 +52,15 @@
         </div>
       <% end %>
       <div class="small-12 medium-2 confirm-status columns"></div>
-      <div class="small-12 medium-3 large-2 text-center columns" style="margin-top:0.45em">
-        <span data-tooltip aria-haspopup="true" class="has-tip" title="<%= current_user.department.payment_info||'請洽詢系學會負責單位'%>">繳款及確認碼資訊</span>
-      </div>
       <div class="show-for-medium-up medium-2 payment-cancel right">
         <% if phase(1) %>
         <%= link_to "取消訂單", book_payment_path(p.id), method: :delete, remote: true, data: {type: 'json'} , class: 'button alert expand payment-cancel-button'%>
         <% end %>
+      </div>
+    </div>
+    <div class="row">
+    <div class="small-12 medium-5 large-4 text-center columns" style="margin-top:0.45em">
+        <a data-reveal-id="payment-info-modal">請先閱讀：繳款及確認資訊</a>
       </div>
     </div>
     <div class="small-4 hide-for-medium-up small-centered payment-cancel" style="margin: 1em auto">

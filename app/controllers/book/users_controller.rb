@@ -1,7 +1,7 @@
 class Book::UsersController < Book::ApplicationController
 	skip_before_action :auth_user!
 	before_action :authenticate_book_department!
-
+	skip_before_action :department_closed
   # Methods below are for dept admins
   def show
   	if (user = current_book_department.users.where(id:params[:id]).first)
