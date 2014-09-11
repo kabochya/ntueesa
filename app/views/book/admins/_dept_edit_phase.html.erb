@@ -10,5 +10,6 @@
 	      <%= radio_button_tag :dept_phase,'dist',d.settings.phase==3 ? true:nil %>
 	      <%= label_tag :dept_phase_dist, 'Distribution' %>
 			</div>
-			<div><%= submit_tag 'Change' %></div>
+			<div><%= submit_tag 'Change' ,class: 'button small' %></div>
 		<% end %>
+<%= link_to "End Department Current Stage",  end_current_stage_book_admin_path(d.id), method: :put, class: 'button alert small'%>

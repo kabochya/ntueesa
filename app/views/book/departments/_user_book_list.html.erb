@@ -11,7 +11,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% user.confirmed_purchase_list.order('book_id ASC').each do |p|%>
+		<% user.receivable_purchase_list.order('book_id ASC').each do |p|%>
 		<tr>
 			<td><%= p.book.title %></td>
 			<td class="user-purchase-status"><%= p.status ? '已領取' : '未領取' %></td>
@@ -22,8 +22,10 @@
 	<tfoot>
 	</tfoot>
 </table>
-<% if user.confirmed_purchase_list.where(status:true).empty? %>
-	<div class="small-3 small-centered columns"><%= link_to '全部領取' , purchases_all_book_user_path(user.id), remote:true, method: :put, class: "button expand dept-user-purchase-status-all-button	 primary"%></div>
+<%# if user.receivable_purchase_list.where(status:true).empty? %>
+	<div class="small-3 small-centered columns">
+	<%#= link_to '全部領取' , purchases_all_book_user_path(user.id), remote:true, method: :put, class: "button expand dept-user-purchase-status-all-button	 primary"%>
+	</div>
 	<% end %>
-<% end %>
+<%# end %>
   <a class="close-reveal-modal">&#215;</a>

@@ -7,8 +7,8 @@ class Book::DepartmentsController < ApplicationController
   end
 	def payments
 		@meth_i=0
-		meth_arr=[1..3,1,2,3]
-		if (0..3).include?(params[:meth].to_i)
+		meth_arr=[1..3,1,2,3,4,5]
+		if (0..5).include?(params[:meth].to_i)
 			@meth_i=params[:meth].to_i
 		end
 		meth=meth_arr[@meth_i]

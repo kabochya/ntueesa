@@ -78,6 +78,12 @@ class Book::AdminsController < Book::ApplicationController
 	end
 	redirect_to edit_book_admin_path, alert:'Successfully changed department phase'
 	end
+
+	def dept_end_current_stage
+		d=Department.find(params[:id])
+		d.payments.where(status:3).update_all(status:4)
+		redirect_to edit_book_admin_path, alert:'Successfully updated department payment status to 4'
+	end
 	private
 	def auth_admin!
 		if !session[:admin]

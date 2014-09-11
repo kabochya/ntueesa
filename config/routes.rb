@@ -17,13 +17,14 @@ Rails.application.routes.draw do
         post 'books', to: 'admins#import_books'
         get 'dept_change_phase', to: 'admins#dept_edit_phase'
         put 'dept_change_phase/:id', to: 'admins#dept_update_phase', as: 'update_dept_phase'
+        put 'dept_end_current_stage/:id', to: 'admins#dept_end_current_stage', as: 'end_current_stage'
       end
     end
     resources :users, only:[:show] do
       member do
         put 'member', to: 'users#modify_membership'
         get 'list', to: 'users#book_list'
-        put 'purchases', to: 'purchases#status_all', as:'purchases_all'
+        #put 'purchases', to: 'purchases#status_all', as:'purchases_all'
         put 'purchase/:purchase_id', to: 'purchases#status', as: 'purchases'
       end
     end

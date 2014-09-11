@@ -10,11 +10,11 @@ class Payment < ActiveRecord::Base
   CONFIRMED=3
 
   def status_class
-  	class_arr=['active-payment-label','checked-out-payment-label','paid-payment-label','confirmed-payment-label']
+  	class_arr=['active-payment-label','checked-out-payment-label','paid-payment-label','confirmed-payment-label','unreceived-payment-label','recieved-payment-label']
   	return class_arr[status]
   end
   def status_label
-  	label_arr=['未結帳','待付款','待確認','完成訂單']
+  	label_arr=['未結帳','待付款','待確認','完成訂單','未領完','完成領取']
   	return label_arr[status]
   end
 

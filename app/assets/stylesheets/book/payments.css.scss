@@ -45,7 +45,13 @@
   @extend .success;
   font-size:0.9em
 }
-
+.unreceived-payment-label{
+  @extend .secondary;
+  font-size:0.9em
+}
+.received-payment-label{
+  font-size:0.9em
+}
 .button.purchase-cancel-button{
     margin-bottom:0;
     padding:0.2em 1.5em 0.3em

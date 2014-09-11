@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
 	LOGIN_FAIL=2
 	CONNECTION_FAIL=3
 
-	def confirmed_purchase_list
-		Purchase.joins(:payment).where(payments:{user_id:id,status:3})
+	def receivable_purchase_list
+		Purchase.joins(:payment).where(payments:{user_id:id,status:4..5})
 	end
 
 	def self.has_book_in_payment(book_id,status_range)
