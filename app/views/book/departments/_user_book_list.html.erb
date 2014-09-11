@@ -1,6 +1,9 @@
 <div class="small-12">
 <% if !user.payments.exists? %>
 <div>無完成訂購書籍!</div>
+<% elsif !user.receivable_purchase_list.exists? %>
+<div>無可領書籍!</div>
+<% end %>
 <% else %>
 <table class="small-12">
 	<thead>
