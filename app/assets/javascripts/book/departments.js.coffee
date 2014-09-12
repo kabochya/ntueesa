@@ -2,6 +2,32 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
+  $('.remark-form').on "click", ".remark-edit", () ->
+    $(this).parent().children('a,span').toggleClass('hide')
+    return
+  $('.remark-form').on "click", ".remark-update", () ->
+    content=$(this).siblings('.remark-text').text()
+    input=$(this).siblings('.remark-input').children('input').val()
+    if input==content or (content=='無' and input =='')
+      $(this).siblings('.remark-cancel').children().trigger('click')
+    else
+      $(this).siblings('.submit_button').children().trigger('click')
+    return
+  $('.remark-form').on "click", ".remark-cancel", () ->
+    $(this).parent().children('a,span').toggleClass('hide')
+    content=$(this).siblings('.remark-text').text()
+    $(this).siblings('.remark-input').children('input').val(content)
+    return
+  $('.remark-form').on "ajax:success", (event, data, status, xhr) ->
+    return if ajaxResponseStatusFilter(data)
+    if data.status
+      content=$(this).children('.remark-input').children('input').val()
+      if content.length==0 then content='無'
+      $(this).children('.remark-text').text(content)
+      $(this).children('.remark-text,.remark-input,a').toggleClass('hide')
+      $(this).children('.remark-success').fadeIn(400).delay(800).fadeOut(400);
+    return
+
   $('.dept-confirm-button').on "ajax:success", (event, data, status, xhr) ->
     return if ajaxResponseStatusFilter(data)
     if data.status

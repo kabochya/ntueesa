@@ -26,6 +26,7 @@ Rails.application.routes.draw do
         get 'list', to: 'users#book_list'
         #put 'purchases', to: 'purchases#status_all', as:'purchases_all'
         put 'purchase/:purchase_id', to: 'purchases#status', as: 'purchases'
+        put 'remark', to:'users#remark'
       end
     end
     post 'purchases' => 'products#purchase'

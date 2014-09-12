@@ -6,19 +6,20 @@
 	<div class="dept-user-search">
 		<%= render partial: 'users_search'%>
 	</div>
-	<div class="users-table small-10 small-centered columns">
+	<div class="users-table small-12 small-centered columns">
 		<table class="small-12">
 			<thead>
 			<tr> 
 				<th class="text-center" style="width:3%">#</th>
-				<th class="text-center" style="width:6%">帳號</th>
+				<th class="text-center" style="width:5%">帳號</th>
 				<th class="text-center" style="width:6%">待確認訂單</th>
 				<th class="text-center" style="width:6%">已完成訂單</th>
 				<th class="text-center" style="width:6%">已付款金額</th>
 				<% if current_book_department.has_member %>
-				<th class="text-center" style="width:5%">會員?</th>
+				<th class="text-center" style="width:4%">會員?</th>
 				<% end %>
-				<th class="text-center" style="width:15%">動作</th>
+				<th class="text-center" style="width:11%">註記</th>
+				<th class="text-center" style="width:14%">動作</th>
 			</tr>
 			</thead>
 			<tbody>

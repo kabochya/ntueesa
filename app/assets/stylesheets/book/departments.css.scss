@@ -34,3 +34,18 @@
 .dept-user-search{
 	margin-top: 1em;
 }
+.remark-form{
+	a{
+		font-size:1.5em;
+	}
+	.remark-input{
+		padding-left:0;
+		padding-right:0;
+		input{
+			margin:0;
+		}
+	}
+	.remark-update,.remark-cancel{
+			margin-top:0.3em;
+	}
+}

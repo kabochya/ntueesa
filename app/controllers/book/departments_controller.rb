@@ -2,7 +2,7 @@ class Book::DepartmentsController < ApplicationController
 	layout "book/department"
 	before_action :authenticate_book_department!
   def show
-  	@d = current_book_department  	
+  	@d = current_book_department
   	@books = @d.books
   end
 	def payments
@@ -15,7 +15,7 @@ class Book::DepartmentsController < ApplicationController
 		if params[:search].nil?||params[:search]==''
 			@payments = current_book_department.payments.where(status:meth).order("id ASC").page(params[:page])
 		else
-			@payments = current_book_department.payments.where(status:meth, payment_code:params[:search]).order("id ASC").page(params[:page])
+			@payments = current_book_department.payments.where(status:meth).where('payment_code LIKE ?',"%#{params[:search]}%").order("id ASC").page(params[:page])
 		end
 		respond_to do |format|
 			format.html
@@ -27,7 +27,7 @@ class Book::DepartmentsController < ApplicationController
 		if params[:search].nil?||params[:search]==''
 			@users = current_book_department.users.order("id ASC").page(params[:page])
 		else
-			@users = current_book_department.users.where(account:params[:search]).order("id ASC").page(params[:page])
+			@users = current_book_department.users.where('account  LIKE ?',"%#{params[:search]}%").order("id ASC").page(params[:page])
 		end
 		respond_to do |format|
 			format.html

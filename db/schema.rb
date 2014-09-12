@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140831133306) do
+ActiveRecord::Schema.define(version: 20140912135242) do
 
   create_table "book_logs", force: true do |t|
     t.string   "role"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 20140831133306) do
     t.boolean  "is_member",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "remark"
   end
 
 end

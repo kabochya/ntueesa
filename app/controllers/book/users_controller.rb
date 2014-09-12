@@ -31,4 +31,18 @@ class Book::UsersController < Book::ApplicationController
     end
   end
 
+  def remark
+    if (user = current_book_department.users.where(id:params[:id]).first)
+      if params[:remark].length>0
+        remark=params[:remark]
+      else
+        remark=nil
+      end
+      user.remark=remark
+      user.save
+      render json: {status:1}  
+    else
+      render json: {status:0}
+    end
+  end
 end
