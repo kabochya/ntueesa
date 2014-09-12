@@ -37,13 +37,13 @@ class Department < ActiveRecord::Base
     if id==1
       ActiveRecord::Base.transaction do
         CSV.foreach(file.path, headers: true) do |row|
-          EeUser.create! row.to_hash.merge!(department_id:id)
+          EeUser.find_or_create_by! row.to_hash.merge!(department_id:id)
         end
       end
     else
       ActiveRecord::Base.transaction do
         CSV.foreach(file.path, headers: true) do |row|
-          ExtUser.create! row.to_hash.merge!(department_id:id)
+          ExtUser.find_or_create_by! row.to_hash.merge!(department_id:id)
         end
       end
     end
