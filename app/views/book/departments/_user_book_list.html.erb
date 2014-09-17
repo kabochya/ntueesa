@@ -4,7 +4,18 @@
 <% elsif !user.receivable_purchase_list.exists? %>
 <div>無可領書籍!</div>
 <% else %>
-<table class="small-12">
+	<div class="clearfix user-info" style="margin-bottom:0.5em;">
+		<span class="left" style="margin-right:0.5em;">#<span class="user-info-id"><%= user.id %></span></span>
+		<span class="left" style="margin-right:0.5em;"><%= user.account %></span>
+		<% if user.department.has_member %>
+		<span class="left label member-label" style="margin-right:0.5em;">
+		
+		<%= user.is_member ? '會員' : '非會員' %>
+		
+		</span>
+		<% end %>
+	</div>
+	<table class="small-12">
 	<thead>
 		<tr>
 			<th class="small-8 text-center">書名</th>

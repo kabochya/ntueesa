@@ -60,6 +60,17 @@ $ ->
     return if ajaxResponseStatusFilter(data)
     if data.status
       $(this).toggleClass('success').toggleClass('alert')
+      switch data.payment_status
+        when 5
+          uid=parseInt($(this).parents('table').siblings('.user-info').find('.user-info-id').text())
+          $target=$('.users-table').find('tr[uid="'+uid+'"]')
+          $target.children('.user-payment-unrecieved').text(parseInt($target.children('.user-payment-unrecieved').text())-1)
+          $target.children('.user-payment-recieved').text(parseInt($target.children('.user-payment-recieved').text())+1)
+        when 4
+          uid=parseInt($(this).parents('table').siblings('.user-info').find('.user-info-id').text())
+          $target=$('.users-table').find('tr[uid="'+uid+'"]')
+          $target.children('.user-payment-unrecieved').text(parseInt($target.children('.user-payment-unrecieved').text())+1)
+          $target.children('.user-payment-recieved').text(parseInt($target.children('.user-payment-recieved').text())-1)
       if $(this).parent().siblings('.user-purchase-status').text()=="已領取"
         $(this).parent().siblings('.user-purchase-status').text("未領取")
         $(this).text('領取')

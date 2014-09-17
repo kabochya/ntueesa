@@ -18,6 +18,12 @@
 			 end %>
 		<%= sum %>
 	</td>
+	<td class="user-payment-unrecieved">
+		<%= user.payments.where(status:4).count %>
+	</td>
+	<td class="user-payment-recieved">
+		<%= user.payments.where(status:5).count %>
+	</td>
 	<% if current_book_department.has_member %>
 	<td class="user-is-member text-center"><%= user.is_member ? '會員' : '非會員'%></td>
 	<% end %>
