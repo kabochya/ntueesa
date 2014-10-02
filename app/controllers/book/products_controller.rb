@@ -8,7 +8,7 @@ class Book::ProductsController < Book::ApplicationController
     block_phase 3
   end
   def index
-    @items=current_user.department.books.all
+    @items=current_user.visible_books
     @d=current_user.department
   end
   def purchase

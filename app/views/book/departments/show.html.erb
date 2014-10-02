@@ -1,9 +1,10 @@
-<div class="department-book-list small-10 small-centered columns">
+<div class="department-book-list small-12 small-centered columns">
 	<table class="small-12">
 		<thead>
 			<tr>
 			<% if @d.has_member %>
 				<th class="book-title">書名</th>
+				<th style="width:5%">狀態</th>
 				<th style="width:9%">會員價</th>
 				<th style="width:10%">非會員價</th>
 				<th style="width:10%">會員訂單</th>
@@ -12,6 +13,7 @@
 				<th style="width:12%">非會已繳款</th>
 			<% else %>
 				<th class="book-title">書名</th>
+				<th style="width:5%">狀態</th>
 				<th style="width:8%">價格</th>
 				<th style="width:8%">訂單</th>
 				<th style="width:9%">已繳款</th>

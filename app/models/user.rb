@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
 		joins(payments: :purchases).where(purchases:{book_id: book_id},payments:{status: status_range})
 	end
 
+	def visible_books
+		Book.joins(:department_books).where(department_books:{department_id:department.id,status:1})
+	end
+
 	def purchase_css_class book_id
 		status=['book-not-purchased','book-purchased','book-checked-out']
 		valid=purchase_validate book_id
