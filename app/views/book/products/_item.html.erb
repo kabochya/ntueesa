@@ -3,7 +3,7 @@
 		<div class="item-inner clearfix">
 			<div class="item-info" >
 				<div class="small-12 columns item-title "><%= item.department_books.where(department_id: d.id).first.course%></div>
-				<% if !item.optional %><div class="small-12 columns end"><h6 class="subheader">非必買</h6></div> <% end %>
+				<% if item.optional %><div class="small-12 columns end"><h6 class="subheader">非必買</h6></div> <% end %>
 				<div class="small-6 medium-8 medium-centered columns">
 				<a class="th item-image">
 				<%= image_tag( item.image_link ) %>
