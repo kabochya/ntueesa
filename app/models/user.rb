@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
 		require 'net/http'
 		require 'uri'
 		require 'openssl'
-		uri=URI.parse('https://sslvpn.ntu.edu.tw')
+		uri=URI.parse('https://sslvpn2.ntu.edu.tw')
 		http = Net::HTTP.new(uri.host, uri.port)
 		http.use_ssl = true
 		http.verify_mode = OpenSSL::SSL::VERIFY_NONE
