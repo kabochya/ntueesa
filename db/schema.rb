@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140912135242) do
+ActiveRecord::Schema.define(version: 20150128144634) do
 
   create_table "book_logs", force: true do |t|
     t.string   "role"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20140912135242) do
     t.integer  "price"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "optional"
   end
 
   create_table "department_books", force: true do |t|
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 20140912135242) do
     t.integer  "book_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "status",        default: 1
   end
 
   add_index "department_books", ["book_id"], name: "index_department_books_on_book_id", using: :btree
