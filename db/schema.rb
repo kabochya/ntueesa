@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150128144634) do
+ActiveRecord::Schema.define(version: 20140917025546) do
 
   create_table "book_logs", force: true do |t|
     t.string   "role"
@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 20150128144634) do
     t.integer  "price"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "optional"
   end
 
   create_table "department_books", force: true do |t|
