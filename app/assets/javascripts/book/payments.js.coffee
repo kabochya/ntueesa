@@ -2,6 +2,15 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
+  $(".payment-accordion").on "change","#confirm-method",() ->
+    pattern = '.*';
+    switch $(this).val()
+      when "1" then pattern = "^([\u4300-\u9eff]){2,4}$"
+      when "2" then pattern = "^([0-9]){5}$"
+      else 
+    $("#confirm_code").attr({pattern: pattern});
+    return
+    
   $(".item-button").on "click", () ->
     $('.bottom-checkout-bar').animate({bottom:0 },1000)
     return
@@ -37,12 +46,14 @@ $ ->
     if data.status
       $('#payment-info-modal').foundation('reveal','open')
       removeAndReplace(data,$(this))
+      $(document).foundation('abide', 'reflow');
     return
 
   $(".payment-accordion").on "ajax:success",".confirm-form", (event, data, status, xhr) ->
     return if ajaxResponseStatusFilter(data)
     if data.status
       removeAndReplace(data,$(this))
+      $(document).foundation('abide', 'reflow');
     else
       $(this).next('.confirm-status').hide().text('確認碼登錄失敗，請重試或聯絡網管人員。').show().delay(1200).fadeOut()
     return

@@ -41,12 +41,17 @@
 
     <% elsif p.status==1%>
     <div class="row">
-      <%= form_tag confirm_book_payment_path(p.id), remote: true, data: {type: 'json'}, class: 'small-12 medium-4 columns confirm-form' do%>
+      <%= form_tag confirm_book_payment_path(p.id), remote: true, data: {type: 'json', abide: ''}, class: 'small-12 medium-4 columns confirm-form' do%>
         <div class="row collapse">
-          <div class="small-8 columns">
-            <%= text_field_tag 'confirm_code', nil, placeholder:"確認碼" , class: 'confirm-code'%>
-          </div>
           <div class="small-4 columns">
+            <%= select_tag "confirm-method", '<option value="1">匯款</option><option value="2">轉帳</option><option value="3">其他</option>'.html_safe,prompt: "確認方式",required:'' %>
+            <small class="error">未選擇</small>
+          </div>
+          <div class="small-5 columns">
+            <%= text_field_tag 'confirm_code', nil, placeholder:"確認碼" , class: 'confirm-code', required:'' ,pattern:'^$'%>
+            <small class="error">輸入格式不符</small>
+          </div>
+          <div class="small-3 columns">
             <%= submit_tag "確認", data:{type: 'json'},class: 'button postfix confirm-button' %>
           </div>
         </div>
@@ -71,12 +76,17 @@
 
     <% elsif p.status==2%>
     <div class="row">
-      <%= form_tag confirm_book_payment_path(p.id),method: :put ,remote: true, data: {type: 'json'}, class: 'small-4 columns modify-confirm-form' do%>
+      <%= form_tag confirm_book_payment_path(p.id),method: :put ,remote: true, data: {type: 'json', abide:'' }, class: 'small-5 columns modify-confirm-form' do%>
         <div class="row collapse">
-          <div class="small-8 columns">
-            <%= text_field_tag 'confirm_code', nil, placeholder:p.payment_code.to_s , class: 'modify-confirm-code' %>
-          </div>
           <div class="small-4 columns">
+            <%= select_tag "confirm-method", '<option value="1">匯款</option><option value="2">轉帳</option><option value="3">其他</option>'.html_safe,prompt: "更改確認碼",required:'' %>
+            <small class="error">未選擇</small>
+          </div>
+          <div class="small-5 columns">
+            <%= text_field_tag 'confirm_code', nil, placeholder:p.payment_code.to_s , class: 'modify-confirm-code',required:'',pattern:'.*' %>
+            <small class="error">輸入格式不符</small>
+          </div>
+          <div class="small-3 columns">
             <%= submit_tag "更改", data:{type: 'json'},class: 'button postfix modify-confirm-button' %>
           </div>
         </div>
