@@ -59,7 +59,7 @@
       </div>
     </div>
     <div class="row">
-    <div class="small-12 medium-5 large-4 text-center columns" style="margin-top:0.45em">
+      <div class="small-12 medium-5 large-4 text-center columns" style="margin-top:0.45em">
         <a data-reveal-id="payment-info-modal">請先閱讀：繳款及確認資訊</a>
       </div>
     </div>
@@ -77,11 +77,16 @@
             <%= text_field_tag 'confirm_code', nil, placeholder:p.payment_code.to_s , class: 'modify-confirm-code' %>
           </div>
           <div class="small-4 columns">
-            <%= submit_tag "Confirm", data:{type: 'json'},class: 'button postfix modify-confirm-button' %>
+            <%= submit_tag "更改", data:{type: 'json'},class: 'button postfix modify-confirm-button' %>
           </div>
         </div>
       <% end %>
       <div class="small-2 confirm-status columns end"></div>
+    </div>
+    <div class="row">
+      <div class="small-12 medium-5 large-4 text-center columns" style="margin-top:0.45em">
+        <a data-reveal-id="payment-info-modal">請先閱讀：繳款及確認資訊</a>
+      </div>
     </div>
     <% end %>
 

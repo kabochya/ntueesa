@@ -51,7 +51,7 @@ class Department < ActiveRecord::Base
   def import_books file
     ActiveRecord::Base.transaction do
       CSV.foreach(file.path, headers: true) do |row|
-        b=Book.create!(title:row['title'],author:row['author'],image_link:row['image_link'],price:row['price'])
+        b=Book.create!(title:row['title'],author:row['author'],image_link:row['image_link'],price:row['price'],optional:row['optional'])
         b.department_books.create!(department_id: id,course:row['course'],member_adj:row['member_adj'],nonmember_adj:row['nonmember_adj'])
       end
     end
