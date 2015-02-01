@@ -1,2 +1,0 @@
-$('.users-pagination').html("<%=j paginate(@users, remote: true, outer_window: 1, window: 2) %>");
-$('.users-table tbody').html("<%=j render(partial: 'users_table', collection: @users, as: :user)||content_tag(:div,'無資料',class:"dept-no-users")%>");

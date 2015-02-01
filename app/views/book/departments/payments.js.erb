@@ -1,5 +1,0 @@
-$('.payments-pagination').html("<%=j paginate(@payments, remote: true, outer_window: 1, window: 2, params:{meth:@meth_i}) %>");
-$('.payments-table tbody').html("<%=j render(partial: 'payments_table', collection: @payments, as: :payment)||content_tag(:div,'無資料',class:"dept-no-payments")%>");
-$('.dept-payment-search-form').attr('action',"<%=j payments_book_department_path(meth:@meth_i)%>")
-$('.payment-filter.active').removeClass('active');
-$('.payment-filter:eq(<%=@meth_i%>)').addClass('active');
