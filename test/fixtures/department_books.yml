@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  course: MyString
+  adjustment: 1
+  department_id: 
+  book_id: 
+
+two:
+  course: MyString
+  adjustment: 1
+  department_id: 
+  book_id: 

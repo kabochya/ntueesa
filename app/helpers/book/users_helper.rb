@@ -1,0 +1,2 @@
+module Book::UsersHelper
+end

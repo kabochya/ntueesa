@@ -1,0 +1,51 @@
+// Place all the styles related to the book/departments controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.department-book-list{
+	th{
+		@extend .text-center;
+	}
+	td{
+		@extend .text-right;	
+	}
+	th.book-title,td.book-title{
+		@extend .text-left;
+	}
+	margin-top:2em;
+}
+.payment-filter{
+	.active{
+		pointer-events: none;
+	}
+}
+.dept-confirm-button[disabled]{
+	pointer-events: none;
+}
+.dept-no-payments{
+	
+}
+.dept-confirm-button,.dept-payment-view-button,.dept-user-member-button,.dept-user-purchase-status-button,.dept-user-purchase-status-all-button{
+	margin:0;
+}
+.payments-sub-nav{
+	margin-top: 2em;
+	background-color: $secondary-color
+}
+.dept-user-search{
+	margin-top: 1em;
+}
+.remark-form{
+	a{
+		font-size:1.5em;
+	}
+	.remark-input{
+		padding-left:0;
+		padding-right:0;
+		input{
+			margin:0;
+		}
+	}
+	.remark-update,.remark-cancel{
+			margin-top:0.3em;
+	}
+}

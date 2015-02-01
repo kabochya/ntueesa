@@ -1,0 +1,21 @@
+<tr>
+	<td style="width:5%">
+		<%= payment.id %>
+	</td>
+	<td class="dept-payment-status" style="width:5%">
+		<%= content_tag(:span, payment.status_label, class: "label "+payment.status_class) %>
+	</td>
+	<td style="width:15%">
+		<%= payment.user.account %>
+	</td>
+	<td style="width:10%">
+		<%= payment.cost %>
+	</td>
+	<td style="width:10%">
+		<%= payment.payment_code %>
+	</td>
+	<td style="width:25%">
+		<%= link_to '確認', (payment.status==2 ? confirm_book_payment_path(payment.id) : nil), remote: true, class: "button tiny dept-confirm-button",disabled: (payment.status==2 ? nil : ' disabled')%>
+		<%= link_to '檢視', book_payment_path(payment.id), remote:true, class: "button tiny dept-payment-view-button", data:{'reveal-id'=>'payment-detail-modal','reveal-ajax'=>true}%>
+	</td>
+</tr>

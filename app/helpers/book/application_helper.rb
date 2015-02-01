@@ -1,0 +1,3 @@
+module Book::ApplicationHelper
+	
+end

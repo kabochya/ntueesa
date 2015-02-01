@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "NTUEESA" %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag "application", 'data-turbolink-track'=> true%>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+<!--   <div class="fixed">
+    <nav class="top-bar show-for-small-only" data-topbar>
+      <ul class="title-area">
+        <li class="toggle-topbar menu-icon "><a href="#"><span>Menu</span></a></li>
+      </ul>
+    </nav>
+  </div> -->
+  <div>
+    <%= render '/layouts/book/user_nav' %>
+  </div>
+  <div class="small-12 large-9 large-offset-2 columns end">
+    <div class="small-8 small-centered columns">
+      <%if flash[:notice]%><div class="flash-box alert-box info"><%= flash[:notice]%></div><% end %>
+      <%if flash[:alert]%><div class="flash-box"><%= flash[:alert]%></div><% end %>
+    </div>
+      <%= yield %>
+  </div>
+  </body>
+</html>

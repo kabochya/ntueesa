@@ -1,0 +1,2 @@
+module Book::ProductsHelper
+end

@@ -1,0 +1,81 @@
+//Place all the styles related to the book/application controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "foundation";
+@mixin box-shadow($top, $left, $blur, $spread, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $spread $color;
+    -moz-box-shadow:inset $top $left $blur $spread $color;
+    box-shadow:inset $top $left $blur $spread $color;
+    } @else {
+      -webkit-box-shadow: $top $left $blur $spread $color;
+      -moz-box-shadow: $top $left $blur $spread $color;
+      box-shadow: $top $left $blur $spread $color;
+    }
+  }
+.login-wrapper{
+  margin-top:2em;
+}
+.flash-box{
+  margin-top: 2em;
+}
+.sidebar {
+  color: $info-color;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  position: fixed;
+  min-width: 130px;
+  h3{
+  	color:inherit
+  }
+  .sidebar-inner{
+    background: $primary-color;
+    margin:0.8em 0;
+    height:95%;
+    @include radius($radius:3px);
+    @include box-shadow(
+      $top: 0,
+      $left: 0,
+      $blur: 6px,
+      $spread: 4px,
+      $color: rgba(0,0,0,0.2));
+    .sidebar-title{
+      margin-top: 0.5em;
+    }
+  }
+}
+.user-side-nav {
+  @include side-nav(
+    // Font size of nav items
+    $font-size:1.8em,
+    // Color of navigation links
+    $link-color:$primary-color
+  );
+  li{
+  	a:not(.button){
+  	background:$info-color;
+  	opacity:0.7;
+	  	&:hover,&:focus{
+	  		background:$info-color;
+	  		opacity:1;
+	  		color: $primary-color;
+	  		}
+	  }
+  }
+  li.active{
+      >a:first-child:not(.button){
+        background:$info-color;
+        opacity:1;
+        color: $primary-color;
+        }
+    }
+
+}
+.user-info{
+	font-size:1.25em;
+}
+@import "products";
+@import "purchases";
+@import "payments";
+@import "departments";

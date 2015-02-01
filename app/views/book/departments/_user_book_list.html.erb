@@ -1,0 +1,44 @@
+<div class="small-12">
+<% if !user.payments.exists? %>
+<div>無完成訂購書籍!</div>
+<% elsif !user.receivable_purchase_list.exists? %>
+<div>無可領書籍!</div>
+<% else %>
+	<div class="clearfix user-info" style="margin-bottom:0.5em;">
+		<span class="left" style="margin-right:0.5em;">#<span class="user-info-id"><%= user.id %></span></span>
+		<span class="left" style="margin-right:0.5em;"><%= user.account %></span>
+		<% if user.department.has_member %>
+		<span class="left label member-label" style="margin-right:0.5em;">
+		
+		<%= user.is_member ? '會員' : '非會員' %>
+		
+		</span>
+		<% end %>
+	</div>
+	<table class="small-12">
+	<thead>
+		<tr>
+			<th class="small-8 text-center">書名</th>
+			<th class="small-2 text-center">狀態</th>
+			<th class="small-2 text-center">動作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% user.receivable_purchase_list.order('book_id ASC').each do |p|%>
+		<tr>
+			<td><%= p.book.title %></td>
+			<td class="user-purchase-status"><%= p.status ? '已領取' : '未領取' %></td>
+			<td><%= link_to (p.status ? '取消領取' : '領取') , purchases_book_user_path(user.id,p.id), remote:true, method: :put, class: "button tiny dept-user-purchase-status-button"+(p.status ? ' alert' : ' success')%></td>
+		</tr>
+		<% end %>
+	</tbody>
+	<tfoot>
+	</tfoot>
+</table>
+<%# if user.receivable_purchase_list.where(status:true).empty? %>
+	<div class="small-3 small-centered columns">
+	<%#= link_to '全部領取' , purchases_all_book_user_path(user.id), remote:true, method: :put, class: "button expand dept-user-purchase-status-all-button	 primary"%>
+	</div>
+	<% end %>
+<%# end %>
+  <a class="close-reveal-modal">&#215;</a>

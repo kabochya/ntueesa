@@ -1,0 +1,13 @@
+<div class="medium-12 columns product-wrapper" data-equalizer>
+<%= render partial: 'item', collection: @items, locals:{d:@d,total_count: @items.size } %>
+</div>
+<div class="product-checkout-box show-for-large-up large-1">
+	<div class="text-center">買完了嗎?</div>
+	<div class="text-center">
+		<%= link_to '結帳',book_payments_path,class: 'button success expand product-checkout-button' %>
+	</div>
+</div>
+<div class="small-12 hide-for-large-up bottom-checkout-bar">
+	<div class="small-12 text-center">買完了嗎？ <%= link_to '結帳',book_payments_path,class: 'button success product-checkout-button' %></div>
+</div>
+<div class="small-12 bottom-buffer"></div>

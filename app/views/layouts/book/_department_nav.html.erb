@@ -1,0 +1,30 @@
+<nav class="top-bar" data-topbar>
+      <ul class="title-area">
+    <li class="name">
+      <h1><a href=<%=book_department_path%>>NTUEESA</a></h1>
+    </li>
+     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  </ul>
+
+  <section class="top-bar-section department-bar-section">
+    <!-- Left Nav Section -->
+    <ul class="left">
+      <li class=<%= current_page?(action:'show') ? "active" : nil %>><a href=" <%= book_department_path %>">首頁</a></li>
+      <li class=<%= current_page?(action:'payments') ? "active" : nil %>>
+      <a href="<%= payments_book_department_path %>">訂單
+        <% unless (confirmable = current_book_department.payments.where('`status` = 2').count)==0 %>
+         <span class="label radius alert confirm-alert" style="font-size:1em"><%= confirmable %></span>
+        <% end %>
+      </a>
+      </li>
+      <li class=<%= current_page?(action:'users') ? "active" : nil %>><a href="<%= users_book_department_path %>">使用者</a></li>
+    </ul>
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <li ><a><%= current_book_department.dept_name %></a></li>
+      <li class="divider"></li>
+      <li ><%= link_to '登出',destroy_book_department_session_path, method: :delete %></li>
+    </ul>
+  </section>
+</nav>
