@@ -16,7 +16,7 @@ class Book::ApplicationController < ApplicationController
     end
   end
 	def block_phase ph
-		if Setting.phase == ph
+		if current_user.department.settings.phase == ph
 			respond_to do |format|
 				format.html {redirect_to  book_prohibited_path }
 				format.json {render json: {status:-1}}

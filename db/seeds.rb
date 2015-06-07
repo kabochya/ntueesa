@@ -7,4 +7,4 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Setting.phase = 0
-Setting.admin_credentials = {'pml0415'=>Digest::SHA256.new.digest('b01901001')} # Admin account/password pair here
+Setting.admin_credentials = {'pml0415'=>Digest::SHA256.new.digest('b01901001'),'ntueeadmin'=>Digest::SHA256.new.digest('ntueeXDD')} # Admin account/password pair here
